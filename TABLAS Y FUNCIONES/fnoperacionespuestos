@@ -1,0 +1,110 @@
+CREATE OR REPLACE FUNCTION fnoperacionespuestos(
+    iOpcion INTEGER,
+    iIdPuesto INTEGER,
+    iDescripcion VARCHAR(100),
+    iEmpleadoRegistra INTEGER,
+    iEmpleadoBaja INTEGER)
+
+RETURNS TABLE(tidpuesto INTEGER, tdescripcion VARCHAR(100), testatus INTEGER, tmensaje TEXT) AS $BODY$ --retorna todos estos datos como respuesta
+DECLARE 
+
+BEGIN
+    CASE
+        WHEN iOpcion = 1 THEN  --OPCION QUE AGREGA UN NUEVO PUESTO 
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto AND descripcion = iDescripcion) THEN --si existe el id del puesto y descripcion en la tabla
+                    RETURN QUERY SELECT --EL PUESTO YA EXISTE POR LO QUE NO SE PUEDE DAR DE ALTA
+                            iIdPuesto,
+                            iDescripcion,
+                            -1,
+                            (SELECT concat('No se agregó el puesto solicitado'));
+
+            ELSE --EL PUESTO NO EXISTE POR LO QUE SE DA DE ALTA
+                INSERT INTO tbcatpuestosprueba(fechaalta,idpuesto,descripcion,empleadoregistra,empleadobaja)
+                VALUES(NOW(),iIdPuesto,iDescripcion,iEmpleadoRegistra,iEmpleadoBaja);
+                RETURN QUERY SELECT
+                            iIdPuesto,
+                            iDescripcion,
+                            1,
+                            (SELECT concat('Puesto agregado correctamente'));
+            END IF;
+
+        WHEN iOpcion = 2 THEN --OPCION QUE ACTUALIZA LA INFORMACION DEL PUESTO
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto) THEN --SI EL PUESTO EXISTE SE MODIFICA LA DESCRIPCION
+            UPDATE tbcatpuestosprueba SET descripcion = iDescripcion WHERE idpuesto = iIdPuesto;
+                RETURN QUERY SELECT 
+                        iIdPuesto,
+                        iDescripcion,
+                        1,
+                        (SELECT concat('Puesto modificado correctamente'));
+            ELSE
+                RETURN QUERY SELECT --EL PUESTO NO EXISTE POR LO QUE NO SE MODIFICA LA DESCRIPCION
+                        iIdPuesto,
+                        iDescripcion,
+                        -1,
+                        (SELECT concat('No se modificó el puesto solicitado'));
+            END IF;
+        
+        WHEN iOpcion = 3 THEN --OPCION QUE ACTUALIZA LA INFORMACION DEL PUESTO PARA DARLO DE BAJA
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto AND estatus = 1) THEN --SI EL PUESTO EXISTE Y TIENE ESTATUS 1, SE PUEDE DAR DE BAJA
+            UPDATE tbcatpuestosprueba SET estatus = 0, fechabaja = NOW(), empleadobaja = iEmpleadoBaja WHERE idpuesto = iIdPuesto;
+                RETURN QUERY SELECT 
+                        iIdPuesto,
+                        iDescripcion,
+                        1,
+                        (SELECT concat('Puesto dado de baja correctamente'));
+            ELSE 
+                RETURN QUERY SELECT  --EL PUESTO NO EXISTE, NO SE PUEDE DAR DE BAJA
+                        iIdPuesto,
+                        iDescripcion,
+                        -1,
+                        (SELECT concat('No se dio de baja el puesto solicitado'));
+            END IF;
+
+        WHEN iOpcion = 4 AND iIdPuesto != -1 THEN --OPCION QUE CONSULTA UN PUESTO ACTIVO
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto) THEN --SI EXISTE EL PUESTO EN LA TABLA
+                IF((SELECT estatus  FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto) = 1) THEN --SI EL PUESTO ESTA DADO DE ALTA (ESTATUS = 1)
+                    RETURN QUERY SELECT 
+                        idpuesto,
+                        descripcion,
+                        1,
+                        (SELECT concat('Puesto encontrado')) FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto;
+                ELSE 
+                    RETURN QUERY SELECT 
+                        idpuesto,
+                        descripcion,
+                        -1,
+                        (SELECT concat('Puesto dado de baja')) FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto;
+                END IF;
+                
+            ELSE --NO EXISTE EL PUESTO EN BASE DE DATOS
+                RETURN QUERY SELECT 
+                    iIdPuesto,
+                    iDescripcion,
+                    -1,
+                    (SELECT concat('Puesto no encontrado'));
+            END IF;
+
+        WHEN iOpcion = 4 AND iIdPuesto = -1 THEN --OPCION QUE CONSULTA TODOS LOS PUESTOS ACTIVOS 
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE estatus = 1) THEN --SI EXISTEN PUESTOS ACTIVOS MUESTRA SUS DATOS
+                RETURN QUERY SELECT 
+                        idpuesto,
+                        descripcion,
+                        1,
+                        (SELECT concat('Puestos encontrados')) FROM tbcatpuestosprueba WHERE estatus = 1;
+            ELSE --NO EXISTE EL PUESTO EN LA TABLA
+                RETURN QUERY SELECT 
+                    iIdPuesto,
+                    iDescripcion,
+                    -1,
+                    (SELECT concat('No se encontraron los puestos registrados'));
+            END IF;
+        ELSE
+            RETURN QUERY SELECT --SI NO INGRESA ALGUNA OPCION VALIDA
+                    iIdPuesto,
+                    iDescripcion,
+                    -1,
+                    (SELECT concat('Opción no valida'));
+    END CASE;
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE;

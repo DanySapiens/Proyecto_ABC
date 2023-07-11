@@ -1,0 +1,234 @@
+CREATE OR REPLACE FUNCTION fnoperacionesempleados(
+    iOpcion INTEGER,
+    iNumEmpleado INTEGER,
+    sNombre VARCHAR(50),
+    sApPaterno VARCHAR(50),
+    sApMaterno VARCHAR(50),
+    sDireccion VARCHAR(60),
+    sCodigoPostal VARCHAR(5),
+    sTelefono VARCHAR(10),
+    sCurp VARCHAR(18),
+    sNss VARCHAR(11),
+    iPuesto INTEGER,
+    sCausaBaja VARCHAR)
+
+RETURNS TABLE(tnumempleado INTEGER, tnombre VARCHAR(50), tappaterno VARCHAR(50), tapmaterno VARCHAR(50), tdireccion VARCHAR(60), tcodigopostal VARCHAR(5), ttelefono VARCHAR(10), tcurp VARCHAR(18), tnss VARCHAR(11), tdescripcionpuesto VARCHAR(100), testatus integer, tmensaje TEXT) AS $BODY$ --retorna todos estos datos como respuesta
+
+DECLARE 
+    -- tnumempleado INTEGER;
+    -- tnombre VARCHAR(50);
+    -- tappaterno VARCHAR(50);
+    -- tapmaterno VARCHAR(50);
+    -- tdireccion VARCHAR(60);
+    -- tcodigopostal VARCHAR(5);
+    -- ttelefono VARCHAR(10);
+    -- tcurp VARCHAR(18);
+    -- tnss VARCHAR(11);
+    -- tdescripcionpuesto VARCHAR(100);
+    -- testatus integer;
+    -- tmensaje TEXT;
+
+BEGIN
+    CASE 
+        WHEN iOpcion = 1 THEN  --OPCION QUE AGREGA LA INFORMACION DEL EMPLEADO A LA BASE DE DATOS
+            IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) THEN --si existe el num de empleado en la tabla
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        -1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' ya se encuentra registrado'));
+            ELSE  --No existe el num de empleado en la tabla
+                INSERT INTO tbcatempleadosprueba (nombre,apellidopaterno, apellidomaterno, direccion,codigopostal, telefono, curp, nss, fechaalta,numeroempleado, puesto, causabaja)
+                VALUES (sNombre,sApPaterno,sApMaterno,sDireccion,sCodigoPostal,sTelefono,sCurp,sNss, NOW(),iNumEmpleado,iPuesto,sCausaBaja);
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' registrado exitosamente'));
+            END IF;
+
+        WHEN iOpcion = 2 THEN --OPCION QUE ACTUALIZA CIERTA INFORMACION DEL EMPLEADO
+            IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) THEN
+                --si existe el num de empleado en la tabla
+                UPDATE tbcatempleadosprueba SET direccion = sDireccion, codigopostal = sCodigoPostal, telefono = sTelefono,
+                curp = sCurp, nss = sNss, puesto = iPuesto WHERE numeroempleado = iNumEmpleado;
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' modificado exitosamente'));
+            ELSE   
+                --No existe el num de empleado en la tabla
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        -1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' no se modificó información'));
+            END IF;
+
+        WHEN iOpcion = 3 THEN --OPCION QUE MODIFICA LA INFORMACION DEL EMPLEADO PARA DAR DE BAJA
+            IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado)THEN   --si existe el num de empleado en la tabla y tiene estatus 1
+                UPDATE tbcatempleadosprueba SET estatus = 0, fechabaja = NOW(), causabaja = sCausaBaja  WHERE numeroempleado = iNumEmpleado;
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' dado de baja correctamente'));
+            
+            ELSE--No existe el num de empleado en la tabla
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        -1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' no se pudo dar de baja correctamente debido a que no existe'));
+            END IF;
+
+        WHEN iOpcion = 4 AND iNumEmpleado != 0 THEN --OPCION QUE CONSULTA LOS DATOS DE UN EMPLEADO ACTIVO
+            IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) THEN --si existe el num de empleado en la tabla
+                IF((SELECT estatus  FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = 1 AND (SELECT fechabaja  FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = '1900-01-01' AND (SELECT causabaja FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = '') THEN --si el empleado esta activo,fecha baja 1900-01-01 y causa baja esta vacio se regresa lo siguiente
+                    RETURN QUERY SELECT 
+                            numeroempleado, 
+                            nombre,
+                            apellidopaterno,
+                            apellidomaterno,
+                            direccion,
+                            codigopostal,
+                            telefono,
+                            curp,
+                            nss,
+                            (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto), 
+                            1,
+                            (SELECT concat('Empleado ',iNumEmpleado,' encontrado')) FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado;
+
+                ELSE  --el empleado existe pero está dado de baja
+
+                    RETURN QUERY SELECT 
+                            numeroempleado, 
+                            nombre,
+                            apellidopaterno,
+                            apellidomaterno,
+                            direccion,
+                            codigopostal,
+                            telefono,
+                            curp,
+                            nss,
+                            (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto), 
+                            -1,
+                            (SELECT concat('Empleado ',iNumEmpleado,' se encuentra dado de baja')) FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado;
+                END IF;
+
+            ELSE--No existe el num de empleado en la tabla
+                RETURN QUERY SELECT 
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        -1,
+                        (SELECT concat('Empleado ',iNumEmpleado,' no encontrado'));
+            END IF;
+
+        WHEN iOpcion = 4 AND iNumEmpleado = 0 THEN --OPCION QUE CONSULTA LA INFORMACION DE TODOD LOS EMPLEADOS ACTIVOS EN LA BASE DE DATOS
+            IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE estatus = 1 AND fechabaja = '1900-01-01'  AND causabaja = '') THEN 
+                RETURN QUERY SELECT --obtiene todos los empleados que estan activos
+                        e.numeroempleado,
+                        e.nombre,
+                        e.apellidopaterno,
+                        e.apellidomaterno,
+                        e.direccion,
+                        e.codigopostal,
+                        e.telefono,
+                        e.curp,
+                        e.nss,
+                        p.descripcion, 
+                        1,
+                        (SELECT concat('Empleados encontrados')) 
+                        FROM tbcatempleadosprueba AS e
+                        INNER JOIN tbcatpuestosprueba AS p ON (e.puesto = p.idpuesto)
+                        WHERE e.estatus = 1 AND e.fechabaja = '1900-01-01' AND e.causabaja = '';
+            ELSE 
+                RETURN QUERY SELECT --NO ENCONTRO EMPLEADOS ACTIVOS
+                        iNumEmpleado, 
+                        sNombre,
+                        sApPaterno,
+                        sApMaterno,
+                        sDireccion,
+                        sCodigoPostal,
+                        sTelefono,
+                        sCurp,
+                        sNss,
+                        (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                        -1,
+                        (SELECT concat('No se encontraron empleados registrados'));
+            END IF;
+        ELSE
+            RETURN QUERY SELECT --SI NO INGRESA ALGUNA OPCION VALIDA
+                            iNumEmpleado, 
+                            sNombre,
+                            sApPaterno,
+                            sApMaterno,
+                            sDireccion,
+                            sCodigoPostal,
+                            sTelefono,
+                            sCurp,
+                            sNss,
+                            (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto),
+                            -1,
+                            (SELECT concat('Opción no valida'));
+    END CASE;
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE;

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ProyectoABC📚</title>
+        <link rel='stylesheet' href='./styles.css'/>
+    </head>
+
+    <body>
+
+        <h1>Proyecto ABC</h1>
+
+        <section id='seleccionar-funcion'>
+            <p>
+                <button id='boton-empleados'>EMPLEADOS</button>
+                <button id='boton-puestos'>PUESTOS</button>
+            </p>
+        </section>
+
+        <section id='seleccionar-accion'>
+            <p>
+                <button id='boton-agregar'>Agregar ➕</button>
+                <button id='boton-modificar'>Modificar 🖋</button>
+                <button id='boton-baja'>Baja ❌</button>
+            </p>
+        </section>
+
+        <section id='ingresar-datos-empleado'>
+            <p>DATOS DEL EMPLEADO:</p>
+            <p>No. Empleado <input type ='text'/>
+            <p>Nombre <input type ='text' maxlength="50"/></p>
+            <p>Apellido Paterno <input type ='text' maxlength="50"/></p>
+            <p>Apellido Materno <input type ='text' maxlength="50"/></p>
+            <p>Dirección <input type ='text' maxlength="60"/></p>
+            <p>Código Postal <input type ='text' maxlength="5"/></p>
+            <p>Teléfono <input type ='text' maxlength="10"/></p>
+            <p>CURP <input type ='text' maxlength="18"/></p>
+            <p>NSS <input type ='text' maxlength="11"/></p>
+            <p>Puesto <input type ='text'/></p>
+            <!-- <p>
+                PUESTO 
+                <select name="select">
+                    <option value="value1">Value 1</option>
+                    <option value="value2" selected>Value 2</option>
+                    <option value="value3">Value 3</option>
+                </select> -->
+            </p>
+            <p>Causa Baja <input type ='text'/></p>
+        </section>
+
+        <section id='ingresar-datos-puesto'>
+            <p>DATOS DEL PUESTO:</p>
+            <p>Id <input type ='text'/>
+            <p>Descripción <input type ='text' maxlength="100"/></p>
+            <p>Empleado registra <input type ='text'/></p>
+            <p>Empleado baja <input type ='text'/></p>
+
+        </section>
+
+        <section id='aceptar-cancelar'>
+            <p>
+                <button id='boton-aceptar'>Aceptar</button>
+                <button id='boton-cancelar'>Cancelar</button>
+            </p>
+        </section>
+
+        <!-- <table class="default">
+            <tr>
+              <td>Celda 1</td>
+              <td>Celda 2</td>
+              <td>Celda 3</td>
+            </tr>
+            <tr>
+              <td>Celda 4</td>
+              <td>Celda 5</td>
+              <td>Celda 6</td>
+            </tr>
+          </table> -->
+
+        <script src="./JS/proyectoABC.js"></script> <!--Exporta JS-->
+
+    </body>
+
+</html>

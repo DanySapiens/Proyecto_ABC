@@ -1,0 +1,67 @@
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+h1{
+    color: rgb(79, 81, 82);
+}
+
+#boton-empleados, #boton-puestos{
+    width: 108px;
+    height: 34px;
+    border-radius: 5px;
+    background-color: #000000;
+    color:white;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+#boton-agregar{
+    width: 108px;
+    height: 34px;
+    border-radius: 5px;
+    background-color: #1dcaff;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+#boton-modificar{
+    width: 108px;
+    height: 34px;
+    border-radius: 5px;
+    background-color: #e2df1d;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+#boton-baja{
+    width: 108px;
+    height: 34px;
+    border-radius: 5px;
+    background-color: #fe8716;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+input{
+    border-color: #000000;
+    border-radius: 3px;
+} 
+
+#boton-aceptar{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #a7ff03;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+#boton-cancelar{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #d00303;
+    /*font-family: 'Fredoka One', cursive; */
+}
+
+/* table,th,td{
+    background-color: #d00303;
+    border: 1px solid;
+    border-collapse: collapse;
+} */
+
