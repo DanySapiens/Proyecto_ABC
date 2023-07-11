@@ -8,6 +8,11 @@ h1{
 
 }
 
+#ingresar-datos-puesto{
+    display: none;
+}
+
+
 #boton-empleados, #boton-puestos{
     width: 108px;
     height: 34px;
