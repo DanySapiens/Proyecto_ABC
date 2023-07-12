@@ -8,60 +8,77 @@
     </head>
 
     <body>
-
-        <h1>Proyecto ABC</h1>
+        <header id="header">
+            <h1>Proyecto ABC</h1>
+        </header>
 
         <section id='seleccionar-funcion'>
-            <p>
-                <button id='boton-empleados'>EMPLEADOS</button>
-                <button id='boton-puestos'>PUESTOS</button>
-            </p>
+            <div id="botones-funcion">
+                    <button id='boton-empleados'>EMPLEADOS</button>
+                    <button id='boton-puestos'>PUESTOS</button>
+            </div>
         </section>
 
         <section id='seleccionar-accion'>
-            <p>
+            <div id="botones-accion">
                 <button id='boton-agregar'>Agregar ➕</button>
                 <button id='boton-modificar'>Modificar 🖋</button>
                 <button id='boton-baja'>Baja ❌</button>
-            </p>
+            </div>
         </section>
 
         <section id='ingresar-datos-empleado'>
-            <p>DATOS DEL EMPLEADO:</p>
-            <p>No. Empleado <input type ='text' id="numero-empleado"/>
-            <p>Nombre <input type ='text' id="nombre-empleado" maxlength="50"/></p>
-            <p>Apellido Paterno <input type ='text' id ='apellido-paterno'maxlength="50"/></p>
-            <p>Apellido Materno <input type ='text' id='apellido-materno' maxlength="50"/></p>
-            <p>Dirección <input type ='text'id='direccion' maxlength="60"/></p>
-            <p>Código Postal <input type ='text' id="codigo-postal" maxlength="5"/></p>
-            <p>Teléfono <input type ='text' id='telefono' maxlength="10"/></p>
-            <p>CURP <input type ='text' id="curp" maxlength="18"/></p>
-            <p>NSS <input type ='text' id='nss' maxlength="11"/></p>
-            <p>Puesto <input type ='text' id='puesto'/></p>
-            <!-- <p>
-                PUESTO 
-                <select name="select">
-                    <option value="value1">Value 1</option>
-                    <option value="value2" selected>Value 2</option>
-                    <option value="value3">Value 3</option>
-                </select> -->
-            </p>
-            <p>Causa Baja <input type ='text' id='causa-baja'/></p>
+            <div id='datos-empleado'>
+                <h3>DATOS DEL EMPLEADO:</h3>
+                <div id="columnas-empleado">
+                    <div id="colum1">
+                        <p>No. Empleado<br><input type ='text' id="numero-empleado"/>
+                        <p>Nombre<br><input type ='text' id="nombre-empleado" maxlength="50"/></p>
+                        <p>Apellido Paterno<br><input type ='text' id ='apellido-paterno'maxlength="50"/></p>
+                        <p>Apellido Materno<br><input type ='text' id='apellido-materno' maxlength="50"/></p>
+                    </div>
+
+                    <div id='colum2'>
+                        <p>Dirección<br><input type ='text'id='direccion' maxlength="60"/></p>
+                        <p>Código Postal<br><input type ='text' id="codigo-postal" maxlength="5"/></p>
+                        <p>Teléfono<br><input type ='text' id='telefono' maxlength="10"/></p>
+                        <p>CURP <br><input type ='text' id="curp" maxlength="18"/></p>
+                    </div>
+
+                    <div id='colum3'>
+                        <p>NSS<br><input type ='text' id='nss' maxlength="11"/></p>
+                        <p>Puesto<br><input type ='text' id='puesto'/></p>
+                        <!-- <p>
+                            PUESTO 
+                            <select name="select">
+                                <option value="value1">Value 1</option>
+                                <option value="value2" selected>Value 2</option>
+                                <option value="value3">Value 3</option>
+                            </select> -->
+                        </p>
+                        <p>Causa Baja<br><input type ='text' id='causa-baja'/></p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id='ingresar-datos-puesto'>
-            <p>DATOS DEL PUESTO:</p>
-            <p>Id <input type ='text' id="id-puesto"/>
-            <p>Descripción <input type ='text' id='descripcion' maxlength="100"/></p>
-            <p>Empleado registra <input type ='text' id='empleado-registra'/></p>
-            <p>Empleado baja <input type ='text' id='empleado-baja'/></p>
+            <div id="datos-puesto">
+                <h3>DATOS DEL PUESTO:</h3>
+                <div id='columna-puestos'>
+                    <p>Id <input type ='text' id="id-puesto"/>
+                    <p>Descripción <input type ='text' id='descripcion' maxlength="100"/></p>
+                    <p>Empleado registra <input type ='text' id='empleado-registra'/></p>
+                    <p>Empleado baja <input type ='text' id='empleado-baja'/></p>
+                </div>
+            </div>
         </section>
 
         <section id='aceptar-cancelar'>
-            <p>
+            <div id="botones-acep-can">
                 <button id='boton-aceptar'>Aceptar</button>
                 <button id='boton-cancelar'>Cancelar</button>
-            </p>
+            </div>
         </section>
 
         <!-- <table class="default">
