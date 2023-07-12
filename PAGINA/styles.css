@@ -1,11 +1,89 @@
+*{
+    margin: 0;
+} 
+
 body{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+#header{
+  background: #a7ff03;
+  margin: 0;
+}
+
 h1{
-    color: rgb(79, 81, 82);
+    height: 70px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    background-color: #4f4f4f;
+}
 
+#botones-funcion{
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 20px;
+}
+
+#botones-accion{
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    margin-bottom: 20px;
+}
+
+h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5vh;
+    display: flex;
+    align-items: center;
+}
+
+#datos-empleado{
+    margin-left: 10vh;
+    margin-right: 10vh;
+    margin-bottom: 20px;
+    border-style: solid;
+    border-color: #000000;
+}
+
+#columnas-empleado{
+    display: grid;
+    grid-template-columns: 40vh 40vh 40vh;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10vh;
+    margin-left: 10vh;
+    
+}
+
+#columna-puestos{
+    margin-left: 10vh;
+}
+
+#botones-acep-can{
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    margin-right: 10vh;
+}
+
+p{
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+#datos-puesto{
+    margin-left: 10vh;
+    margin-right: 10vh;
+    margin-bottom: 20px;
+    border-style: solid;
+    border-color: #000000;
 }
 
 #ingresar-datos-puesto{
@@ -19,7 +97,7 @@ h1{
     border-radius: 5px;
     background-color: #000000;
     color:white;
-    /*font-family: 'Fredoka One', cursive; */
+    font-weight: bold;
 }
 
 #boton-agregar{
@@ -27,6 +105,7 @@ h1{
     height: 34px;
     border-radius: 5px;
     background-color: #1dcaff;
+    font-weight: bold;
     /*font-family: 'Fredoka One', cursive; */
 }
 
@@ -35,6 +114,7 @@ h1{
     height: 34px;
     border-radius: 5px;
     background-color: #e2df1d;
+    font-weight: bold;
     /*font-family: 'Fredoka One', cursive; */
 }
 
@@ -43,6 +123,7 @@ h1{
     height: 34px;
     border-radius: 5px;
     background-color: #fe8716;
+    font-weight: bold;
     /*font-family: 'Fredoka One', cursive; */
 }
 
