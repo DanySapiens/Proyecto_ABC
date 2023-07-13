@@ -66,33 +66,110 @@
             <div id="datos-puesto">
                 <h3>DATOS DEL PUESTO:</h3>
                 <div id='columna-puestos'>
-                    <p>Id <input type ='text' id="id-puesto"/>
-                    <p>Descripción <input type ='text' id='descripcion' maxlength="100"/></p>
-                    <p>Empleado registra <input type ='text' id='empleado-registra'/></p>
-                    <p>Empleado baja <input type ='text' id='empleado-baja'/></p>
+                    <p>Id<br><input type ='text' id="id-puesto"/></p>
+                    <p>Descripción<br><input type ='text' id='descripcion' maxlength="100"/></p>
+                    <p>Empleado registra<br><input type ='text' id='empleado-registra'/></p>
+                    <p>Empleado baja<br><input type ='text' id='empleado-baja'/></p>
                 </div>
             </div>
         </section>
 
         <section id='aceptar-cancelar'>
             <div id="botones-acep-can">
-                <button id='boton-aceptar'>Aceptar</button>
-                <button id='boton-cancelar'>Cancelar</button>
+                <button id='boton-aceptar'>Aceptar 📥</button>
+                <button id='boton-cancelar'>Cancelar ✖</button>
             </div>
         </section>
 
-        <!-- <table class="default">
-            <tr>
-              <td>Celda 1</td>
-              <td>Celda 2</td>
-              <td>Celda 3</td>
-            </tr>
-            <tr>
-              <td>Celda 4</td>
-              <td>Celda 5</td>
-              <td>Celda 6</td>
-            </tr>
-          </table> -->
+        <section id='buscador-empleado'>
+            <p>Buscar No. empleado: 
+                <input type ='text' id="buscar-empleado"/>
+                <button id='lupa-empleado'>🔍</button>
+            </p>
+            <p>
+                <label for='check-emp'>Filtrar Empleados Activos</label>
+                <input type ='checkbox' id='check-emp'>
+            </p>
+        </section>
+
+        <section id='buscador-puesto'>
+            <p>Buscar Id Puesto: 
+                <input type ='text' id="buscar-puesto"/>
+                <button id='lupa-puesto'>🔍</button>
+            </p>
+            <p>
+                <label for='check-puesto'>Filtrar Puestos Activos</label>
+                <input type ='checkbox' id='check-puesto'>
+            </p>
+        </section>
+
+        <section id='mostrar-info-empleados'>
+            <table id="tabla-empleados" border="2px">
+                <tr id="titulo-tabla-empleados">
+                    <td> No. empleado </td>
+                    <td> Nombre </td>
+                    <td> Apellido Paterno </td>
+                    <td>Apellido Materno</td>
+                    <td>Dirección</td>
+                    <td>Código Postal</td>
+                    <td>Teléfono</td>
+                    <td>CURP</td>
+                    <td>NSS</td>
+                    <td>Puesto</td>
+                    <td>Fecha Alta</td>
+                    <td>Fecha Baja</td>
+                    <td>Estatus</td>
+                    <td>Causa Baja</td>
+                    <!-- <td>Estatus</td>
+                    <td>Mensaje</td> -->
+                </tr>
+                
+                <!--aqui deberia de ir incrementando conforme la informacion aparezca-->
+                <tr id='info-tabla-empleados'>
+                    <td>90236398</td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            </table>
+        </section>
+
+        <section id='mostrar-info-puestos'>
+            <table id="tabla-puestos" border="2px">
+                <tr id="titulo-tabla-puestos">
+                    <td> Id </td>
+                    <td> Descripción </td>
+                    <td> Fecha Alta </td>
+                    <td> Estatus </td>
+                    <td> Fecha Baja </td>
+                    <td> Empleado registra </td>
+                    <td> Empleado baja </td>
+                    <!-- <td>Estatus</td>
+                    <td>Mensaje</td> -->
+                </tr>
+                
+                <!--aqui deberia de ir incrementando conforme la informacion aparezca-->
+                <tr id='info-tabla-puestos'>
+                    <td> 254 </td>
+                    <td> </td>
+                    <td>  </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            </table>
+        </section>
 
         <script src="./JS/proyectoABC.js"></script> <!--Exporta JS-->
 
