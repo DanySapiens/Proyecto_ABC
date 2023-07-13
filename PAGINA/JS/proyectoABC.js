@@ -10,6 +10,10 @@ const botonCancelar = document.getElementById('boton-cancelar')
 //secciones
 const seccionDatosEmpleado = document.getElementById('ingresar-datos-empleado')
 const seccionDatosPuesto = document.getElementById('ingresar-datos-puesto')
+const seccionTablaEmpleados = document.getElementById('mostrar-info-empleados')
+const seccionTablaPuestos = document.getElementById('mostrar-info-puestos')
+const seccionBuscadorEmpleados = document.getElementById('buscador-empleado')
+const seccionBuscadoPuestos = document.getElementById('buscador-puesto')
 
 //Informacion del empleado y puesto
 const inputNumEmp = document.getElementById("numero-empleado")
@@ -27,6 +31,8 @@ const inputDescripcion = document.getElementById('descripcion')
 const inputEmpleadoRegistra = document.getElementById('empleado-registra')
 const inputEmpleadoBaja = document.getElementById('empleado-baja')
 const inputCausaBaja = document.getElementById('causa-baja')
+const inputBuscadorEmpleado = document.getElementById('buscar-empleado')
+const inputBuscadorPuesto = document.getElementById('buscar-puesto')
 
 //llama a la funcion paa validar el ingreso de letras en estos campos
 inputNombre.addEventListener('keypress',SoloLetras)
@@ -44,11 +50,17 @@ inputNSS.addEventListener('keypress',SoloNumeros)
 inputIdPuesto.addEventListener('keypress',SoloNumeros)
 inputEmpleadoRegistra.addEventListener('keypress',SoloNumeros)
 inputEmpleadoBaja.addEventListener('keypress',SoloNumeros)
+inputBuscadorEmpleado.addEventListener('keypress',SoloNumeros)
+inputBuscadorPuesto.addEventListener('keypress', SoloNumeros)
 
 
 function inicioEmpleados(){
     seccionDatosEmpleado.style.display ='block';
+    seccionTablaEmpleados.style.display ='block'
+    seccionBuscadorEmpleados.style.display ='block'
     seccionDatosPuesto.style.display ='none';
+    seccionTablaPuestos.style.display = 'none'
+    seccionBuscadoPuestos.style.display ='none'
 
     botonPuestos.addEventListener('click',inicioPuestos)
     botonPuestos.addEventListener('click',agregarPuesto)
@@ -64,7 +76,13 @@ function inicioEmpleados(){
 
 function inicioPuestos(){
     seccionDatosEmpleado.style.display ='none'
+    seccionTablaEmpleados.style.display = 'none'
+    seccionBuscadorEmpleados.style.display ='none'
+
     seccionDatosPuesto.style.display ='block'
+    seccionTablaPuestos.style.display ='block'
+    seccionBuscadoPuestos.style.display ='block'
+    
 
     botonEmpleados.addEventListener('click',inicioEmpleados)
     botonEmpleados.addEventListener('click', agregarEmpleado)
@@ -123,7 +141,25 @@ function modificarEmpleado(){
     inputApellidoMaterno.disabled = true; //campo apellido materno
     inputApellidoMaterno.style.background = '#c1c1c1';
 
-    inputCausaBaja.disabled = true; //campo apellido paterno
+    inputDireccion.disabled = false; //campo direccion
+    inputDireccion.style.background ='white';
+
+    inputCP.disabled = false; //campo CP
+    inputCP.style.background ='white';
+
+    inputTel.disabled = false; //campo telefono
+    inputTel.style.background ='white';
+
+    inputCURP.disabled = false; //campo curp
+    inputCURP.style.background ='white';
+
+    inputNSS.disabled = false; //campo NSS
+    inputNSS.style.background ='white';
+
+    inputPuesto.disabled = false; //campo puesto
+    inputPuesto.style.background ='white';
+
+    inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
 }
 
@@ -260,6 +296,30 @@ function cancelar(){ //funcion para limpiar contenido de los inputs
     inputEmpleadoRegistra.value = '';
     inputEmpleadoBaja.value = '';
 }
+
+//funcion para deshabilitar el click derecho
+// function disableIE() {
+//     if (document.all) {
+//         return false;
+//     }
+// }
+// function disableNS(e) {
+//     if (document.layers || (document.getElementById && !document.all)) {
+//         if (e.which==2 || e.which==3) {
+//             return false;
+//         }
+//     }
+// }
+// if (document.layers) {
+//     document.captureEvents(Event.MOUSEDOWN);
+//     document.onmousedown = disableNS;
+// } 
+// else {
+//     document.onmouseup = disableNS;
+//     document.oncontextmenu = disableIE;
+// }
+// document.oncontextmenu=new Function("return false");
+// //******* */
 
 window.addEventListener('load', inicioEmpleados); //se activa cuando se carga toda la pagina
 
