@@ -17,6 +17,7 @@ $telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_STRING);
 $curp = filter_input(INPUT_POST, 'curp', FILTER_SANITIZE_STRING);
 $nss = filter_input(INPUT_POST, 'nss', FILTER_SANITIZE_STRING);
 $puesto = filter_input(INPUT_POST, 'puesto', FILTER_SANITIZE_STRING);
+$causabaja = filter_input(INPUT_POST, 'causabaja', FILTER_SANITIZE_STRING);
 
 switch($iOpcion){
 
@@ -31,6 +32,11 @@ switch($iOpcion){
 
     case '3':
         $arrRespuesta=Empleados::modificarEmpleado($opcion,$numeroempleado,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto); //parametros que recibe del ajax para mdificar datos de empleado
+    break;
+
+    case '4':
+        $arrRespuesta=Empleados::bajaEmpleado($opcion,$numeroempleado,$causabaja);
+        
     break;
 
 
