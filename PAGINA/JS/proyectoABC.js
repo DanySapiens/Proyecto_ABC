@@ -54,7 +54,7 @@ inputIdPuesto.addEventListener('keypress',SoloNumeros)
 inputEmpleadoRegistra.addEventListener('keypress',SoloNumeros)
 inputEmpleadoBaja.addEventListener('keypress',SoloNumeros)
 inputBuscadorEmpleado.addEventListener('keypress',SoloNumeros)
-inputBuscadorPuesto.addEventListener('keypress', SoloNumeros)
+// inputBuscadorPuesto.addEventListener('keypress', SoloNumeros) //buscar si se puede incluir el signo -
 
 
 function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de inicio Empleados
@@ -270,16 +270,15 @@ function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campo
 }
 
 
+function consultaPuestos(){
+    if (inputBuscadorPuesto.value.length == 0) {
+         alert('Ingrese el ID del puesto');
+         return false;
+     }else{
+        realizarConsultaPuesto(inputBuscadorPuesto.value);
+     }
+ }
 
-
-// function consultaPuestos(){
-//     if (inputBuscadorPuesto.value.length == 0) {
-//         alert('Ingrese el ID del puesto');
-//         return false;
-//     }else{
-//         realizarConsultaPuestos(inputBuscadorPuesto.value)
-//     }
-// }
 function traerPantallaInicioPuestos(){ //funcion para mostrar la pantalla de inicio Puestos
     seccionDatosEmpleado.style.display ='none'
     seccionTablaEmpleados.style.display = 'none'
@@ -297,7 +296,7 @@ function traerPantallaInicioPuestos(){ //funcion para mostrar la pantalla de ini
     botonModificar.addEventListener('click', deshabilitarCamposModificarPuesto)
     botonBaja.addEventListener('click', deshabilitarCamposBajaPuesto)
 
-    // botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
+    botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
 
 }
 
@@ -634,7 +633,76 @@ function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd p
     });
 }
 
+//seccion de ajaxs para la clase puestos
+function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 1 del php
+    $.ajax({
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion:6, opcion:4, idpuesto:id},
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje);
 
+            if(id !='-1'){
+        
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<td>" + data[i].tidpuesto + "</td>";
+                        tabla_html += "<td>" + data[i].tdescripcion + "</td>";
+                        tabla_html += "<td> </td>";
+                        // tabla_html += "<td>" + data[i].testatus+ "</td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                    }
+                }
+                else{
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                }
+
+                $("#info-tabla-puestos").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
+            }
+            else{
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<tr>" +
+                        "<td>" + data[i].tidpuesto + "</td>" +
+                        "<td>" + data[i].tdescripcion + "</td>" +
+                        "<td> </td>" +
+                        // "<td>" + data[i].testatus  + "</td>" +
+                        "<td> </td>" +
+                        "<td> </td>" +
+                        "<td> </td>" +
+                        "</tr>";
+                        tabla_html += "<tr> </tr>"
+                    }
+    
+                }
+                else{
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                }
+    
+                    $("#info-tabla-puestos").html(tabla_html);  //
+
+            }
+        },
+        error: function (data){   
+            console.log(data)
+        }
+        });
+}
 
 
 
