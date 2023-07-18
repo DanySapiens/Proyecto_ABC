@@ -79,27 +79,6 @@ function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de i
     botonLupaEmpleado.addEventListener('click',consultaEmpleado) //llama a la funcion
 }
 
-function traerPantallaInicioPuestos(){ //funcion para mostrar la pantalla de inicio Puestos
-    seccionDatosEmpleado.style.display ='none'
-    seccionTablaEmpleados.style.display = 'none'
-    seccionBuscadorEmpleados.style.display ='none'
-
-    seccionDatosPuesto.style.display ='block'
-    seccionTablaPuestos.style.display ='block'
-    seccionBuscadoPuestos.style.display ='block'
-
-    botonEmpleados.addEventListener('click',traerPantallaInicioEmpleados)
-    botonEmpleados.addEventListener('click', deshabilitarCamposAgregarEmpleado)
-
-    botonCancelar.addEventListener('click',cancelar)
-    botonAgregar.addEventListener('click', deshabilitarCamposAgregarPuesto)
-    botonModificar.addEventListener('click', deshabilitarCamposModificarPuesto)
-    botonBaja.addEventListener('click', deshabilitarCamposBajaPuesto)
-
-    // botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
-
-}
-
 function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los campos no requeridos para agregar empleado y mandar llamar al ajax
     cancelar();
 
@@ -143,6 +122,15 @@ function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los ca
     botonAceptar.removeEventListener('click', modificaEmpleado); //remueve los eventos anteriores para ejecutar uno solo
     botonAceptar.removeEventListener('click', darDeBajaEmpleado);
     botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
+}
+
+function consultaEmpleado(){
+    if (inputBuscadorEmpleado.value.length == 0) {
+        alert('Ingrese numero de empleado');
+        return false;
+    }else{
+        realizarConsultaEmpleado(inputBuscadorEmpleado.value)
+    }
 }
 
 function altaEmpleado(){
@@ -281,14 +269,7 @@ function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campo
     botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
 
-function consultaEmpleado(){
-    if (inputBuscadorEmpleado.value.length == 0) {
-        alert('Ingrese numero de empleado');
-        return false;
-    }else{
-        realizarConsultaEmpleado(inputBuscadorEmpleado.value)
-    }
-}
+
 
 
 // function consultaPuestos(){
@@ -299,7 +280,26 @@ function consultaEmpleado(){
 //         realizarConsultaPuestos(inputBuscadorPuesto.value)
 //     }
 // }
+function traerPantallaInicioPuestos(){ //funcion para mostrar la pantalla de inicio Puestos
+    seccionDatosEmpleado.style.display ='none'
+    seccionTablaEmpleados.style.display = 'none'
+    seccionBuscadorEmpleados.style.display ='none'
 
+    seccionDatosPuesto.style.display ='block'
+    seccionTablaPuestos.style.display ='block'
+    seccionBuscadoPuestos.style.display ='block'
+
+    botonEmpleados.addEventListener('click',traerPantallaInicioEmpleados)
+    botonEmpleados.addEventListener('click', deshabilitarCamposAgregarEmpleado)
+
+    botonCancelar.addEventListener('click',cancelar)
+    botonAgregar.addEventListener('click', deshabilitarCamposAgregarPuesto)
+    botonModificar.addEventListener('click', deshabilitarCamposModificarPuesto)
+    botonBaja.addEventListener('click', deshabilitarCamposBajaPuesto)
+
+    // botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
+
+}
 
 function deshabilitarCamposAgregarPuesto(){
     inputIdPuesto.disabled = false; //campo id puesto
