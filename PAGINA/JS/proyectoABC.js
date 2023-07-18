@@ -448,7 +448,7 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
         url: ('../PHP/case.php'),
         type: 'POST',
         dataType: 'JSON',
-        data: {iOpcion:2, opcion:1, numeroempleado:empleado,nombre:nom,appaterno:appater,appmaterno:appmatern,direccion:direc,codigopostal:cp,telefono:tel,curp:cur,nss:ns,puesto:pues},
+        data: {iOpcion:2, opcion:1, numeroempleado:empleado,nombre:nom,apellidopaterno:appater,apellidomaterno:appmatern,direccion:direc,codigopostal:cp,telefono:tel,curp:cur,nss:ns,puesto:pues}, //manda estos datos al POST del php, el nombre del campo antes del : es como lo recibe el post
         success: function(data){
             alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
             console.log(data)
