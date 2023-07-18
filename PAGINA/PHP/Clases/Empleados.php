@@ -3,9 +3,16 @@ include_once ("conexion.php");
 
 class Empleados{ 
     
-    // public static function agregarEmpleado(){
-
-    // }
+    public static function agregarEmpleado($opcion,$numeroempleado,$nombre,$appaterno,$appmaterno,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionesempleados({$opcion},{$numeroempleado},'$nombre','$appaterno','$appmaterno','$direccion','$codigopostal','$telefono','$curp','$nss',{$puesto},'');";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
     // public static function modificarEmpleado(){
     // }
     // public static function bajaEmpleado(){
