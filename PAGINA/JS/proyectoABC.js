@@ -177,6 +177,16 @@ function modificaEmpleado(){
 
 }
 
+function darDeBajaEmpleado(){
+    if (inputNumEmp.value.length == 0) {
+        alert('Ingrese numero de empleado');
+        return false;
+    }else{ //ejecutas el ajax
+        darBajaEmpleado(inputNumEmp.value,
+                            inputCausaBaja.value)
+            }
+}
+
 function modificarEmpleado(){ //seccion en la pagina
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
@@ -254,9 +264,12 @@ function bajaEmpleado(){
     inputCausaBaja.disabled = false; //campo causa baja
     inputCausaBaja.style.background = 'white';
 
-    botonBaja.style.boxShadow = '#888602 1px 1px 20px 1px';
+    botonBaja.style.boxShadow = '#d96d09 1px 1px 20px 1px';
     botonAgregar.style.boxShadow = 'none';
     botonModificar.style.boxShadow = 'none';
+
+    botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
+
 
 }
 
@@ -520,7 +533,7 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
     });
 }
 
-function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 2 del php
+function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 3 del php
     $.ajax({  ///no guarda la infor en bd
         url: ('../PHP/case.php'),
         type: 'POST',
@@ -545,6 +558,57 @@ function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion pa
                     tabla_html += "<td>" + inputPuesto.value + "</td>";
                     tabla_html += "<td>" + data[i].testatus + "</td>";
                     tabla_html += "<td> </td>";
+                }
+            }
+            else{
+                tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+
+            }
+            $("#info-tabla-empleados").html(tabla_html);  //
+            
+        },
+        error: function (data){   
+            console.log(data)
+        }
+    });
+}
+
+function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd para el case 4 del php
+    $.ajax({  ///no guarda la infor en bd
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion:4, opcion:3, numeroempleado:empleado,causabaja:causaBajaEmp}, //manda estos datos al POST del php, el nombre del campo antes del : es como lo recibe el post
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
+
+            if(data[0].testatus == '1'){
+
+                var tabla_html = '';
+                for(var i = 0; i < data.length; i++){
+                    tabla_html += "<td>" + inputNumEmp.value + "</td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td>" + data[i].testatus + "</td>";
+                    tabla_html += "<td>" + inputCausaBaja.value+ "</td>";
                 }
             }
             else{
