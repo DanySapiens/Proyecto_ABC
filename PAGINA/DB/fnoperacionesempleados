@@ -135,18 +135,21 @@ BEGIN
             IF EXISTS(SELECT 'OK' FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) THEN --si existe el num de empleado en la tabla
                 IF((SELECT estatus  FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = 1 AND (SELECT fechabaja  FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = '1900-01-01' AND (SELECT causabaja FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado) = '') THEN --si el empleado esta activo,fecha baja 1900-01-01 y causa baja esta vacio se regresa lo siguiente
                     RETURN QUERY SELECT 
-                            numeroempleado, 
-                            nombre,
-                            apellidopaterno,
-                            apellidomaterno,
-                            direccion,
-                            codigopostal,
-                            telefono,
-                            curp,
-                            nss,
-                            (SELECT descripcion from tbcatpuestosprueba WHERE idpuesto = iPuesto), 
+                            e.numeroempleado,
+                            e.nombre,
+                            e.apellidopaterno,
+                            e.apellidomaterno,
+                            e.direccion,
+                            e.codigopostal,
+                            e.telefono,
+                            e.curp,
+                            e.nss,
+                            p.descripcion, 
                             1,
-                            (SELECT concat('Empleado ',iNumEmpleado,' encontrado')) FROM tbcatempleadosprueba WHERE numeroempleado = iNumEmpleado;
+                            (SELECT concat('Empleado ',iNumEmpleado,' encontrado'))
+                            FROM tbcatempleadosprueba AS e
+                            INNER JOIN tbcatpuestosprueba AS p ON (e.puesto = p.idpuesto)
+                            WHERE e.numeroempleado = iNumEmpleado;
 
                 ELSE  --el empleado existe pero está dado de baja
 

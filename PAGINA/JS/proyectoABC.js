@@ -6,6 +6,8 @@ const botonModificar = document.getElementById('boton-modificar')
 const botonBaja = document.getElementById('boton-baja')
 const botonAceptar = document.getElementById('boton-aceptar')
 const botonCancelar = document.getElementById('boton-cancelar')
+const botonLupaEmpleado = document.getElementById('lupa-empleado')
+const botonLupaPuestos = document.getElementById('lupa-puesto')
 
 //secciones
 const seccionDatosEmpleado = document.getElementById('ingresar-datos-empleado')
@@ -33,6 +35,7 @@ const inputEmpleadoBaja = document.getElementById('empleado-baja')
 const inputCausaBaja = document.getElementById('causa-baja')
 const inputBuscadorEmpleado = document.getElementById('buscar-empleado')
 const inputBuscadorPuesto = document.getElementById('buscar-puesto')
+const checkEmpleados = document.getElementById('check-emp')
 
 //llama a la funcion paa validar el ingreso de letras en estos campos
 inputNombre.addEventListener('keypress',SoloLetras)
@@ -72,6 +75,8 @@ function inicioEmpleados(){
 
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
+
+    botonLupaEmpleado.addEventListener('click',consultaEmpleado) //llama a la funcion
 }
 
 function inicioPuestos(){
@@ -82,7 +87,6 @@ function inicioPuestos(){
     seccionDatosPuesto.style.display ='block'
     seccionTablaPuestos.style.display ='block'
     seccionBuscadoPuestos.style.display ='block'
-    
 
     botonEmpleados.addEventListener('click',inicioEmpleados)
     botonEmpleados.addEventListener('click', agregarEmpleado)
@@ -91,6 +95,9 @@ function inicioPuestos(){
     botonAgregar.addEventListener('click',agregarPuesto)
     botonModificar.addEventListener('click',modificarPuesto)
     botonBaja.addEventListener('click',bajaPuesto)
+
+    botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
+
 }
 
 function agregarEmpleado(){
@@ -200,6 +207,25 @@ function bajaEmpleado(){
 
 }
 
+function consultaEmpleado(){
+    if (inputBuscadorEmpleado.value.length == 0) {
+        alert('Ingrese numero de empleado');
+        return false;
+    }else{
+        realizarConsultaEmpleado(inputBuscadorEmpleado.value)
+    }
+}
+
+function consultaPuestos(){
+    if (inputBuscadorPuesto.value.length == 0) {
+        alert('Ingrese el ID del puesto');
+        return false;
+    }else{
+        realizarConsultaPuestos(inputBuscadorPuesto.value)
+    }
+}
+
+
 function agregarPuesto(){
     inputIdPuesto.disabled = false; //campo id puesto
     inputIdPuesto.style.background = 'white';
@@ -241,6 +267,11 @@ function bajaPuesto(){
     inputEmpleadoBaja.disabled = false; //campo nombre empleado
     inputEmpleadoBaja.style.background = 'white';
 }
+
+function consultaPuesto(){
+    
+}
+
 
 
 //FUNCION PARA VALIDAR INGRESO DE SOLO CARACTERES
@@ -295,6 +326,157 @@ function cancelar(){ //funcion para limpiar contenido de los inputs
     inputDescripcion.value = '';
     inputEmpleadoRegistra.value = '';
     inputEmpleadoBaja.value = '';
+}
+
+
+function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y num!=0
+    $.ajax({
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion: 1, opcion:4, numeroempleado:empleado},
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje);
+
+            if(empleado !='0'){
+        
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<td>" + data[i].tnumempleado + "</td>";
+                        tabla_html += "<td>" + data[i].tnombre + "</td>";
+                        tabla_html += "<td>" + data[i].tappaterno + "</td>";
+                        tabla_html += "<td>" + data[i].tapmaterno + "</td>";
+                        tabla_html += "<td>" + data[i].tdireccion + "</td>";
+                        tabla_html += "<td>" + data[i].tcodigopostal + "</td>";
+                        tabla_html += "<td>" + data[i].ttelefono + "</td>";
+                        tabla_html += "<td>" + data[i].tcurp + "</td>";
+                        tabla_html += "<td>" + data[i].tnss + "</td>";
+                        tabla_html += "<td>" + data[i].tdescripcionpuesto + "</td>";
+                        tabla_html += "<td>" + data[i].testatus + "</td>";
+                        tabla_html += "<td> </td>";
+                    }
+                }
+                else{
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                }
+
+                $("#info-tabla-empleados").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
+            }
+            else{
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<tr>" +
+                        "<td>" + data[i].tnumempleado + "</td>" +
+                        "<td>" + data[i].tnombre + "</td>" +
+                        "<td>" + data[i].tappaterno + "</td>" +
+                        "<td>" + data[i].tapmaterno + "</td>" +
+                        "<td>" + data[i].tdireccion + "</td>" +
+                        "<td>" + data[i].tcodigopostal + "</td>" +
+                        "<td>" + data[i].ttelefono + "</td>" +
+                        "<td>" + data[i].tcurp + "</td>" +
+                        "<td>" + data[i].tnss + "</td>" +
+                        "<td>" + data[i].tdescripcionpuesto + "</td>" +
+                        "<td>" + data[i].testatus + "</td>" +
+                        "<td> </td>" +
+                        "</tr>";
+                        tabla_html += "<tr> </tr>"
+                    }
+    
+                    }
+                    else{
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                    }
+    
+                    $("#info-tabla-empleados").html(tabla_html);  //
+
+            }
+        },
+        error: function (data){   
+            console.log(data)
+        }
+        });
+}
+
+function realizarConsultaPuestos(id){ //consulta la bd para el caso 4 y num!=0
+    $.ajax({
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iopcion_p: 1, opcion:4, idPuesto:id},
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje);
+
+            if(id !='0'){
+        
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<td>" + data[i].tnumempleado + "</td>";
+                        tabla_html += "<td>" + data[i].tnombre + "</td>";
+                        tabla_html += "<td>" + data[i].tappaterno + "</td>";
+                        tabla_html += "<td>" + data[i].tapmaterno + "</td>";
+                        tabla_html += "<td> </td>";
+                    }
+                }
+                else{
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    
+                }
+
+                $("#info-tabla-puestos").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
+            }
+            else{
+                if(data[0].testatus == '1'){
+                    var tabla_html = '';
+                    for(var i = 0; i < data.length; i++){
+                        tabla_html += "<td>" + data[i].tnumempleado + "</td>";
+                        tabla_html += "<td>" + data[i].tnombre + "</td>";
+                        tabla_html += "<td>" + data[i].tappaterno + "</td>";
+                        tabla_html += "<td>" + data[i].tapmaterno + "</td>";
+                        tabla_html += "<td> </td>";
+                    }
+                }
+                else{
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                }
+                $("#info-tabla-puestos").html(tabla_html);  //
+
+            }
+        },
+        error: function (data){   
+            console.log(data)
+        }
+        });
 }
 
 //funcion para deshabilitar el click derecho

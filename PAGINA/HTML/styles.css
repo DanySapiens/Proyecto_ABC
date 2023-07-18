@@ -195,7 +195,7 @@ input{
 #tabla-empleados{
     margin-top: 20px;
     margin-bottom: 20px;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     border-style: inherit;
     border-top-color: rgb(0, 0, 0);

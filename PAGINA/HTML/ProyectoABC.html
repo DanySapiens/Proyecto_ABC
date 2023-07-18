@@ -48,14 +48,6 @@
                     <div id='colum3'>
                         <p>NSS<br><input type ='text' id='nss' maxlength="11"/></p>
                         <p>Puesto<br><input type ='text' id='puesto'/></p>
-                        <!-- <p>
-                            PUESTO 
-                            <select name="select">
-                                <option value="value1">Value 1</option>
-                                <option value="value2" selected>Value 2</option>
-                                <option value="value3">Value 3</option>
-                            </select> -->
-                        </p>
                         <p>Causa Baja<br><input type ='text' id='causa-baja'/></p>
                     </div>
                 </div>
@@ -105,43 +97,30 @@
 
         <section id='mostrar-info-empleados'>
             <table id="tabla-empleados" border="2px">
-                <tr id="titulo-tabla-empleados">
-                    <td> No. empleado </td>
-                    <td> Nombre </td>
-                    <td> Apellido Paterno </td>
-                    <td>Apellido Materno</td>
-                    <td>Dirección</td>
-                    <td>Código Postal</td>
-                    <td>Teléfono</td>
-                    <td>CURP</td>
-                    <td>NSS</td>
-                    <td>Puesto</td>
-                    <td>Fecha Alta</td>
-                    <td>Fecha Baja</td>
-                    <td>Estatus</td>
-                    <td>Causa Baja</td>
-                    <!-- <td>Estatus</td>
-                    <td>Mensaje</td> -->
-                </tr>
+                <thead>
+                    <tr id="titulo-tabla-empleados">
+                        <td> No. empleado </td>
+                        <td> Nombre </td>
+                        <td> Apellido Paterno </td>
+                        <td>Apellido Materno</td>
+                        <td>Dirección</td>
+                        <td>Código Postal</td>
+                        <td>Teléfono</td>
+                        <td>CURP</td>
+                        <td>NSS</td>
+                        <td>Puesto</td>
+                        <td>Estatus</td>
+                        <td>Causa Baja</td>
+                        <!-- <td>Estatus</td>
+                        <td>Mensaje</td> -->
+                    </tr>
+                </thead>
                 
-                <!--aqui deberia de ir incrementando conforme la informacion aparezca-->
-                <tr id='info-tabla-empleados'>
-                    <td>90236398</td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
+                <tbody id='info-tabla-empleados'>
+                <!--aqui deberia de ir incrementando conforme la informacion aparezca se va a llenar con el JS-->
+                </tbody>
             </table>
+            
         </section>
 
         <section id='mostrar-info-puestos'>
@@ -160,9 +139,9 @@
                 
                 <!--aqui deberia de ir incrementando conforme la informacion aparezca-->
                 <tr id='info-tabla-puestos'>
-                    <td> 254 </td>
                     <td> </td>
-                    <td>  </td>
+                    <td> </td>
+                    <td> </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
@@ -171,8 +150,9 @@
             </table>
         </section>
 
-        <script src="./JS/proyectoABC.js"></script> <!--Exporta JS-->
-
+        <script src="../JS/proyectoABC.js"></script> <!--Exporta JS-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        
     </body>
 
 </html>
