@@ -13,8 +13,16 @@ class Empleados{
         $data[] = $row;}
         return $data;
     }
-    // public static function modificarEmpleado(){
-    // }
+    public static function modificarEmpleado($opcion,$numeroempleado,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionesempleados({$opcion},{$numeroempleado},'','','','$direccion','$codigopostal','$telefono','$curp','$nss',{$puesto},'');";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
     // public static function bajaEmpleado(){
     // }
     // public static function consultaEmpleado(){
