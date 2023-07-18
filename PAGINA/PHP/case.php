@@ -1,8 +1,7 @@
 <?php //controlador 
-// header("Access-Control-Allow-Origin: *");
-// header("Access-Control-Allow-Methods: *");
 
 include_once('./Clases/Empleados.php');
+include_once('./Clases/Puestos.php');
 
 $arrRespuesta = array(); //respuesta
 $iOpcion = filter_input(INPUT_POST, 'iOpcion', FILTER_SANITIZE_STRING); //entrada
@@ -20,7 +19,7 @@ $puesto = filter_input(INPUT_POST, 'puesto', FILTER_SANITIZE_STRING);
 $causabaja = filter_input(INPUT_POST, 'causabaja', FILTER_SANITIZE_STRING);
 
 switch($iOpcion){
-
+    //case 1-5 es para empleados
     case '1':
         $arrRespuesta=Empleados::consultaEmpleadoActivo($opcion,$numeroempleado);
     break;
@@ -37,11 +36,10 @@ switch($iOpcion){
         $arrRespuesta=Empleados::bajaEmpleado($opcion,$numeroempleado,$causabaja);
     break;
 
-
-    // case '99':
-    //     $arrRespuesta=Empleados::consultaEmpleado();
+    //case 6-11 es para puestos
+    // case '6':
+    //     $arrRespuesta=Puestos::consultaPuestoActivo()
     // break;
-
 }
 
 
