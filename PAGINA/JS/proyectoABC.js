@@ -414,7 +414,6 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
                         tabla_html += "<td>" + data[i].tcurp + "</td>";
                         tabla_html += "<td>" + data[i].tnss + "</td>";
                         tabla_html += "<td>" + data[i].tdescripcionpuesto + "</td>";
-                        tabla_html += "<td>" + data[i].testatus + "</td>";
                         tabla_html += "<td> </td>";
                     }
                 }
@@ -430,7 +429,7 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
+                    
                 }
 
                 $("#info-tabla-empleados").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
@@ -450,7 +449,6 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
                         "<td>" + data[i].tcurp + "</td>" +
                         "<td>" + data[i].tnss + "</td>" +
                         "<td>" + data[i].tdescripcionpuesto + "</td>" +
-                        "<td>" + data[i].testatus + "</td>" +
                         "<td> </td>" +
                         "</tr>";
                         tabla_html += "<tr> </tr>"
@@ -458,7 +456,6 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
     
                 }
                 else{
-                        tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
@@ -505,7 +502,6 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
                     tabla_html += "<td>" + inputCURP.value + "</td>";
                     tabla_html += "<td>" + inputNSS.value + "</td>";
                     tabla_html += "<td>" + inputPuesto.value + "</td>";
-                    tabla_html += "<td>" + data[i].testatus + "</td>";
                     tabla_html += "<td> </td>";
                 }
             }
@@ -521,7 +517,7 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
+                        
 
             }
             $("#info-tabla-empleados").html(tabla_html);  //
@@ -556,7 +552,6 @@ function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion pa
                     tabla_html += "<td>" + inputCURP.value + "</td>";
                     tabla_html += "<td>" + inputNSS.value + "</td>";
                     tabla_html += "<td>" + inputPuesto.value + "</td>";
-                    tabla_html += "<td>" + data[i].testatus + "</td>";
                     tabla_html += "<td> </td>";
                 }
             }
@@ -572,8 +567,6 @@ function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion pa
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-
             }
             $("#info-tabla-empleados").html(tabla_html);  //
             
@@ -607,7 +600,6 @@ function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd p
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    tabla_html += "<td>" + data[i].testatus + "</td>";
                     tabla_html += "<td>" + inputCausaBaja.value+ "</td>";
                 }
             }
@@ -623,8 +615,7 @@ function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd p
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-
+                       
             }
             $("#info-tabla-empleados").html(tabla_html);  //
             
