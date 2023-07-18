@@ -96,7 +96,7 @@ function inicioPuestos(){
     botonModificar.addEventListener('click',modificarPuesto)
     botonBaja.addEventListener('click',bajaPuesto)
 
-    botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
+    // botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
 
 }
 
@@ -133,6 +133,27 @@ function agregarEmpleado(){
 
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
+
+    botonAceptar.addEventListener('click',altaEmpleado)
+
+}
+
+function altaEmpleado(){
+    if (inputNumEmp.value.length == 0) {
+        alert('Ingrese numero de empleado');
+        return false;
+    }else{
+        darAltaEmpleado(inputNumEmp.value,
+                        inputNombre.value,
+                        inputApellidoPaterno.value,
+                        inputApellidoMaterno.value,
+                        inputDireccion.value,
+                        inputCP.value,
+                        inputTel.value,
+                        inputCURP.value,
+                        inputNSS.value,
+                        inputPuesto.value)
+    }
 }
 
 function modificarEmpleado(){
@@ -216,14 +237,15 @@ function consultaEmpleado(){
     }
 }
 
-function consultaPuestos(){
-    if (inputBuscadorPuesto.value.length == 0) {
-        alert('Ingrese el ID del puesto');
-        return false;
-    }else{
-        realizarConsultaPuestos(inputBuscadorPuesto.value)
-    }
-}
+
+// function consultaPuestos(){
+//     if (inputBuscadorPuesto.value.length == 0) {
+//         alert('Ingrese el ID del puesto');
+//         return false;
+//     }else{
+//         realizarConsultaPuestos(inputBuscadorPuesto.value)
+//     }
+// }
 
 
 function agregarPuesto(){
@@ -395,8 +417,8 @@ function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y n
                         tabla_html += "<tr> </tr>"
                     }
     
-                    }
-                    else{
+                }
+                else{
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
@@ -409,7 +431,7 @@ function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y n
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
-                    }
+                }
     
                     $("#info-tabla-empleados").html(tabla_html);  //
 
@@ -421,63 +443,24 @@ function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y n
         });
 }
 
-function realizarConsultaPuestos(id){ //consulta la bd para el caso 4 y num!=0
-    $.ajax({
+function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues){ //consulta la bd para el caso 1 
+    $.ajax({  ///no guarda la infor en bd
         url: ('../PHP/case.php'),
         type: 'POST',
         dataType: 'JSON',
-        data: {iopcion_p: 1, opcion:4, idPuesto:id},
+        data: {iOpcion:2, opcion:1, numeroempleado:empleado,nombre:nom,appaterno:appater,appmaterno:appmatern,direccion:direc,codigopostal:cp,telefono:tel,curp:cur,nss:ns,puesto:pues},
         success: function(data){
-            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje);
-
-            if(id !='0'){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
+            console.log(data)
         
-                if(data[0].testatus == '1'){
-                    var tabla_html = '';
-                    for(var i = 0; i < data.length; i++){
-                        tabla_html += "<td>" + data[i].tnumempleado + "</td>";
-                        tabla_html += "<td>" + data[i].tnombre + "</td>";
-                        tabla_html += "<td>" + data[i].tappaterno + "</td>";
-                        tabla_html += "<td>" + data[i].tapmaterno + "</td>";
-                        tabla_html += "<td> </td>";
-                    }
-                }
-                else{
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    
-                }
-
-                $("#info-tabla-puestos").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
-            }
-            else{
-                if(data[0].testatus == '1'){
-                    var tabla_html = '';
-                    for(var i = 0; i < data.length; i++){
-                        tabla_html += "<td>" + data[i].tnumempleado + "</td>";
-                        tabla_html += "<td>" + data[i].tnombre + "</td>";
-                        tabla_html += "<td>" + data[i].tappaterno + "</td>";
-                        tabla_html += "<td>" + data[i].tapmaterno + "</td>";
-                        tabla_html += "<td> </td>";
-                    }
-                }
-                else{
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                }
-                $("#info-tabla-puestos").html(tabla_html);  //
-
-            }
         },
         error: function (data){   
             console.log(data)
         }
-        });
+    });
 }
+
+
 
 //funcion para deshabilitar el click derecho
 // function disableIE() {
