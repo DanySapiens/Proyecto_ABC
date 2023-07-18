@@ -27,6 +27,13 @@ switch($iOpcion){
     case '2':
         $arrRespuesta=Empleados::agregarEmpleado($opcion,$numeroempleado,$nombre,$appaterno,$appmaterno,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto); //lo recibe del ajax
 
+    break;
+
+    case '3':
+        $arrRespuesta=Empleados::modificarEmpleado($opcion,$numeroempleado,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto); //parametros que recibe del ajax para mdificar datos de empleado
+    break;
+
+
     // case '99':
     //     $arrRespuesta=Empleados::consultaEmpleado();
     // break;
