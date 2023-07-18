@@ -27,7 +27,6 @@ switch($iOpcion){
 
     case '2':
         $arrRespuesta=Empleados::agregarEmpleado($opcion,$numeroempleado,$nombre,$appaterno,$appmaterno,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto); //lo recibe del ajax
-
     break;
 
     case '3':
@@ -36,7 +35,6 @@ switch($iOpcion){
 
     case '4':
         $arrRespuesta=Empleados::bajaEmpleado($opcion,$numeroempleado,$causabaja);
-        
     break;
 
 

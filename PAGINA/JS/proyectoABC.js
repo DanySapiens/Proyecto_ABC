@@ -101,6 +101,7 @@ function inicioPuestos(){
 }
 
 function agregarEmpleado(){
+
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
 
@@ -135,10 +136,9 @@ function agregarEmpleado(){
     inputCausaBaja.style.background = '#c1c1c1';
 
     botonAgregar.style.boxShadow = '#079cff 1px 1px 20px 1px';
-    
     botonModificar.style.boxShadow = 'none';
     botonBaja.style.boxShadow = 'none';
-   
+
     botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
     
 }
@@ -183,11 +183,12 @@ function darDeBajaEmpleado(){
         return false;
     }else{ //ejecutas el ajax
         darBajaEmpleado(inputNumEmp.value,
-                            inputCausaBaja.value)
+                        inputCausaBaja.value)
             }
 }
 
 function modificarEmpleado(){ //seccion en la pagina
+
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
 
@@ -226,11 +227,11 @@ function modificarEmpleado(){ //seccion en la pagina
     botonBaja.style.boxShadow = 'none';
 
     botonAceptar.addEventListener('click',modificaEmpleado); ///llama a la funcion para ejecutar el ajax
-
 }
 
 
 function bajaEmpleado(){
+
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
 
@@ -269,8 +270,6 @@ function bajaEmpleado(){
     botonModificar.style.boxShadow = 'none';
 
     botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
-
-
 }
 
 function consultaEmpleado(){
