@@ -14,4 +14,15 @@ class Puestos{
         return $data;
     }
 
+    public static function agregarPuesto($opcion,$idpuesto,$descripcion,$empleadoalta){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'$descripcion',{$empleadoalta},0);";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
+
 }
