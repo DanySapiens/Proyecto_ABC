@@ -23,9 +23,16 @@ class Empleados{
         $data[] = $row;}
         return $data;
     }
-    // public static function bajaEmpleado(){
-    // }
-    // public static function consultaEmpleado(){
+    public static function bajaEmpleado($opcion,$numeroempleado,$causabaja){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionesempleados({$opcion},{$numeroempleado},'','','','','','','','',0,'$causabaja');";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
     
     public static function consultaEmpleadoActivo($opcion,$numeroempleado){
         $conexion = new Conexion();
@@ -37,9 +44,5 @@ class Empleados{
         $data[] = $row;}
         return $data;
     }
-
-    // public static function consultaMultiEmpleados(){
-
-    // }
 
 }
