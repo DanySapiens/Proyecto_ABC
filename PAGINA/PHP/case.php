@@ -17,6 +17,7 @@ $curp = filter_input(INPUT_POST, 'curp', FILTER_SANITIZE_STRING);
 $nss = filter_input(INPUT_POST, 'nss', FILTER_SANITIZE_STRING);
 $puesto = filter_input(INPUT_POST, 'puesto', FILTER_SANITIZE_STRING);
 $causabaja = filter_input(INPUT_POST, 'causabaja', FILTER_SANITIZE_STRING);
+$idpuesto = filter_input(INPUT_POST, 'idpuesto', FILTER_SANITIZE_STRING);
 
 switch($iOpcion){
     //case 1-5 es para empleados
@@ -37,9 +38,9 @@ switch($iOpcion){
     break;
 
     //case 6-11 es para puestos
-    // case '6':
-    //     $arrRespuesta=Puestos::consultaPuestoActivo()
-    // break;
+    case '6':
+        $arrRespuesta=Puestos::consultaPuestoActivo($opcion,$idpuesto);
+    break;
 }
 
 
