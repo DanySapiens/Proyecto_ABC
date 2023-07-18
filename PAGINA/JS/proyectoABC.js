@@ -66,7 +66,7 @@ function inicioEmpleados(){
     seccionBuscadoPuestos.style.display ='none'
 
     botonPuestos.addEventListener('click',inicioPuestos)
-    botonPuestos.addEventListener('click',agregarPuesto)
+    botonPuestos.addEventListener('click', deshabilitarCamposAgregarPuesto)
     botonAgregar.addEventListener('click',agregarEmpleado)
     botonModificar.addEventListener('click',modificarEmpleado)
     botonBaja.addEventListener('click',bajaEmpleado)
@@ -92,15 +92,16 @@ function inicioPuestos(){
     botonEmpleados.addEventListener('click', agregarEmpleado)
 
     botonCancelar.addEventListener('click',cancelar)
-    botonAgregar.addEventListener('click',agregarPuesto)
-    botonModificar.addEventListener('click',modificarPuesto)
-    botonBaja.addEventListener('click',bajaPuesto)
+    botonAgregar.addEventListener('click', deshabilitarCamposAgregarPuesto)
+    botonModificar.addEventListener('click', deshabilitarCamposModificarPuesto)
+    botonBaja.addEventListener('click', deshabilitarCamposBajaPuesto)
 
     // botonLupaPuestos.addEventListener('click',consultaPuestos) //llama a la funcion
 
 }
 
-function agregarEmpleado(){
+function agregarEmpleado(){ //seccion de pagina
+    cancelar();
 
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
@@ -139,8 +140,9 @@ function agregarEmpleado(){
     botonModificar.style.boxShadow = 'none';
     botonBaja.style.boxShadow = 'none';
 
+    botonAceptar.removeEventListener('click', modificaEmpleado);
+    botonAceptar.removeEventListener('click', darDeBajaEmpleado);
     botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
-    
 }
 
 function altaEmpleado(){
@@ -189,6 +191,8 @@ function darDeBajaEmpleado(){
 
 function modificarEmpleado(){ //seccion en la pagina
 
+    cancelar(); //limpia los input
+
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
 
@@ -226,11 +230,16 @@ function modificarEmpleado(){ //seccion en la pagina
     botonAgregar.style.boxShadow = 'none';
     botonBaja.style.boxShadow = 'none';
 
-    botonAceptar.addEventListener('click',modificaEmpleado); ///llama a la funcion para ejecutar el ajax
+    botonAceptar.removeEventListener('click',altaEmpleado);
+    botonAceptar.removeEventListener('click', darDeBajaEmpleado);
+    botonAceptar.addEventListener('click', modificaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
 
 
 function bajaEmpleado(){
+
+    cancelar(); //limpia los input
+
 
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
@@ -269,6 +278,8 @@ function bajaEmpleado(){
     botonAgregar.style.boxShadow = 'none';
     botonModificar.style.boxShadow = 'none';
 
+    botonAceptar.removeEventListener('click',altaEmpleado);
+    botonAceptar.removeEventListener('click', modificaEmpleado);
     botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
 
@@ -292,7 +303,7 @@ function consultaEmpleado(){
 // }
 
 
-function agregarPuesto(){
+function deshabilitarCamposAgregarPuesto(){
     inputIdPuesto.disabled = false; //campo id puesto
     inputIdPuesto.style.background = 'white';
 
@@ -306,7 +317,7 @@ function agregarPuesto(){
     inputEmpleadoBaja.style.background = '#c1c1c1';
 }
 
-function modificarPuesto(){
+function deshabilitarCamposModificarPuesto(){
     inputIdPuesto.disabled = false; //campo id puesto
     inputIdPuesto.style.background = 'white';
 
@@ -320,7 +331,7 @@ function modificarPuesto(){
     inputEmpleadoBaja.style.background = '#c1c1c1';
 }
 
-function bajaPuesto(){
+function deshabilitarCamposBajaPuesto(){
     inputIdPuesto.disabled = false; //campo id puesto
     inputIdPuesto.style.background = 'white';
 
