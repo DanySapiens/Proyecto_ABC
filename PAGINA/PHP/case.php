@@ -9,7 +9,7 @@ $iOpcion = filter_input(INPUT_POST, 'iOpcion', FILTER_SANITIZE_STRING); //entrad
 $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_STRING); //entrada
 $numeroempleado = filter_input(INPUT_POST, 'numeroempleado', FILTER_SANITIZE_STRING); //entrada
 $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
-$appaterno = filter_input(INPUT_POST, 'apellidopaterno', FILTER_SANITIZE_STRING); //entre '' el nombre en la tabla
+$appaterno = filter_input(INPUT_POST, 'apellidopaterno', FILTER_SANITIZE_STRING); //entre '' el nombre en la tabla, el post lo busca como 'apellidopaterno'
 $appmaterno = filter_input(INPUT_POST, 'apellidomaterno', FILTER_SANITIZE_STRING);
 $direccion = filter_input(INPUT_POST, 'direccion', FILTER_SANITIZE_STRING);
 $codigopostal = filter_input(INPUT_POST, 'codigopostal', FILTER_SANITIZE_STRING);
@@ -25,7 +25,7 @@ switch($iOpcion){
     break;
 
     case '2':
-        $arrRespuesta=Empleados::agregarEmpleado($opcion,$numeroempleado,'$nombre','$appaterno','$appmaterno','$direccion','$codigopostal','$telefono','$curp','$nss',$puesto);
+        $arrRespuesta=Empleados::agregarEmpleado($opcion,$numeroempleado,$nombre,$appaterno,$appmaterno,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto); //lo recibe del ajax
 
     // case '99':
     //     $arrRespuesta=Empleados::consultaEmpleado();
