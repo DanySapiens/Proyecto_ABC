@@ -451,8 +451,44 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
         data: {iOpcion:2, opcion:1, numeroempleado:empleado,nombre:nom,apellidopaterno:appater,apellidomaterno:appmatern,direccion:direc,codigopostal:cp,telefono:tel,curp:cur,nss:ns,puesto:pues}, //manda estos datos al POST del php, el nombre del campo antes del : es como lo recibe el post
         success: function(data){
             alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
-            console.log(data)
-        
+
+            if(data[0].testatus == '1'){
+
+                var tabla_html = '';
+                for(var i = 0; i < data.length; i++){
+                    tabla_html += "<td>" + inputNumEmp.value + "</td>";
+                    tabla_html += "<td>" + inputNombre.value + "</td>";
+                    tabla_html += "<td>" + inputApellidoPaterno.value + "</td>";
+                    tabla_html += "<td>" + inputApellidoMaterno.value + "</td>";
+                    tabla_html += "<td>" + inputDireccion.value + "</td>";
+                    tabla_html += "<td>" + inputCP.value + "</td>";
+                    tabla_html += "<td>" + inputTel.value + "</td>";
+                    tabla_html += "<td>" + inputCURP.value + "</td>";
+                    tabla_html += "<td>" + inputNSS.value + "</td>";
+                    tabla_html += "<td>" + inputPuesto.value + "</td>";
+                    tabla_html += "<td>" + data[i].testatus + "</td>";
+                    tabla_html += "<td> </td>";
+
+                    
+                }
+            }
+            else{
+                tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+
+            }
+            $("#info-tabla-empleados").html(tabla_html);  //
+            
         },
         error: function (data){   
             console.log(data)
