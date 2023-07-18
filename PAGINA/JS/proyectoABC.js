@@ -351,7 +351,7 @@ function cancelar(){ //funcion para limpiar contenido de los inputs
 }
 
 
-function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y num!=0
+function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para el case 1 del php
     $.ajax({
         url: ('../PHP/case.php'),
         type: 'POST',
@@ -443,7 +443,7 @@ function realizarConsultaEmpleado(empleado){ //consulta la bd para el caso 4 y n
         });
 }
 
-function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues){ //consulta la bd para el caso 1 
+function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 2 del php
     $.ajax({  ///no guarda la infor en bd
         url: ('../PHP/case.php'),
         type: 'POST',
@@ -468,8 +468,6 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
                     tabla_html += "<td>" + inputPuesto.value + "</td>";
                     tabla_html += "<td>" + data[i].testatus + "</td>";
                     tabla_html += "<td> </td>";
-
-                    
                 }
             }
             else{
