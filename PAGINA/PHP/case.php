@@ -18,6 +18,8 @@ $nss = filter_input(INPUT_POST, 'nss', FILTER_SANITIZE_STRING);
 $puesto = filter_input(INPUT_POST, 'puesto', FILTER_SANITIZE_STRING);
 $causabaja = filter_input(INPUT_POST, 'causabaja', FILTER_SANITIZE_STRING);
 $idpuesto = filter_input(INPUT_POST, 'idpuesto', FILTER_SANITIZE_STRING);
+$descripcion = filter_input(INPUT_POST, 'descripcion', FILTER_SANITIZE_STRING);
+$empleadoalta = filter_input(INPUT_POST, 'empleadoalta', FILTER_SANITIZE_STRING);
 
 switch($iOpcion){
     //case 1-5 es para empleados
@@ -40,6 +42,10 @@ switch($iOpcion){
     //case 6-11 es para puestos
     case '6':
         $arrRespuesta=Puestos::consultaPuestoActivo($opcion,$idpuesto);
+    break;
+
+    case '7':
+        $arrRespuesta=Puestos::agregarPuesto($opcion,$idpuesto,$descripcion,$empleadoalta);
     break;
 }
 
