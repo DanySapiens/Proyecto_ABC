@@ -134,8 +134,13 @@ function agregarEmpleado(){
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
 
-    botonAceptar.addEventListener('click',altaEmpleado)
-
+    botonAgregar.style.boxShadow = '#079cff 1px 1px 20px 1px';
+    
+    botonModificar.style.boxShadow = 'none';
+    botonBaja.style.boxShadow = 'none';
+   
+    botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
+    
 }
 
 function altaEmpleado(){
@@ -156,7 +161,23 @@ function altaEmpleado(){
     }
 }
 
-function modificarEmpleado(){
+function modificaEmpleado(){
+    if (inputNumEmp.value.length == 0) {
+        alert('Ingrese numero de empleado');
+        return false;
+    }else{ //ejecutas el ajax
+        modificarDatosEmpleado(inputNumEmp.value,
+                            inputDireccion.value,
+                            inputCP.value,
+                            inputTel.value,
+                            inputCURP.value,
+                            inputNSS.value,
+                            inputPuesto.value)
+            }
+
+}
+
+function modificarEmpleado(){ //seccion en la pagina
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
 
@@ -189,6 +210,13 @@ function modificarEmpleado(){
 
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
+
+    botonModificar.style.boxShadow = '#888602 1px 1px 20px 1px';
+    botonAgregar.style.boxShadow = 'none';
+    botonBaja.style.boxShadow = 'none';
+
+    botonAceptar.addEventListener('click',modificaEmpleado); ///llama a la funcion para ejecutar el ajax
+
 }
 
 
@@ -225,6 +253,10 @@ function bajaEmpleado(){
 
     inputCausaBaja.disabled = false; //campo causa baja
     inputCausaBaja.style.background = 'white';
+
+    botonBaja.style.boxShadow = '#888602 1px 1px 20px 1px';
+    botonAgregar.style.boxShadow = 'none';
+    botonModificar.style.boxShadow = 'none';
 
 }
 
@@ -289,12 +321,6 @@ function bajaPuesto(){
     inputEmpleadoBaja.disabled = false; //campo nombre empleado
     inputEmpleadoBaja.style.background = 'white';
 }
-
-function consultaPuesto(){
-    
-}
-
-
 
 //FUNCION PARA VALIDAR INGRESO DE SOLO CARACTERES
 function SoloLetras(e){
@@ -493,6 +519,59 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
         }
     });
 }
+
+function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 2 del php
+    $.ajax({  ///no guarda la infor en bd
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion:3, opcion:2, numeroempleado:empleado,direccion:direc,codigopostal:cp,telefono:tel,curp:cur,nss:ns,puesto:pues}, //manda estos datos al POST del php, el nombre del campo antes del : es como lo recibe el post
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
+
+            if(data[0].testatus == '1'){
+
+                var tabla_html = '';
+                for(var i = 0; i < data.length; i++){
+                    tabla_html += "<td>" + inputNumEmp.value + "</td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td>" + inputDireccion.value + "</td>";
+                    tabla_html += "<td>" + inputCP.value + "</td>";
+                    tabla_html += "<td>" + inputTel.value + "</td>";
+                    tabla_html += "<td>" + inputCURP.value + "</td>";
+                    tabla_html += "<td>" + inputNSS.value + "</td>";
+                    tabla_html += "<td>" + inputPuesto.value + "</td>";
+                    tabla_html += "<td>" + data[i].testatus + "</td>";
+                    tabla_html += "<td> </td>";
+                }
+            }
+            else{
+                tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+
+            }
+            $("#info-tabla-empleados").html(tabla_html);  //
+            
+        },
+        error: function (data){   
+            console.log(data)
+        }
+    });
+}
+
+
 
 
 
