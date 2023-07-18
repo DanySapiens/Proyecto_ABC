@@ -57,7 +57,7 @@ inputBuscadorEmpleado.addEventListener('keypress',SoloNumeros)
 inputBuscadorPuesto.addEventListener('keypress', SoloNumeros)
 
 
-function inicioEmpleados(){
+function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de inicio Empleados
     seccionDatosEmpleado.style.display ='block';
     seccionTablaEmpleados.style.display ='block'
     seccionBuscadorEmpleados.style.display ='block'
@@ -65,11 +65,11 @@ function inicioEmpleados(){
     seccionTablaPuestos.style.display = 'none'
     seccionBuscadoPuestos.style.display ='none'
 
-    botonPuestos.addEventListener('click',inicioPuestos)
+    botonPuestos.addEventListener('click',traerPantallaInicioPuestos)
     botonPuestos.addEventListener('click', deshabilitarCamposAgregarPuesto)
-    botonAgregar.addEventListener('click',agregarEmpleado)
-    botonModificar.addEventListener('click',modificarEmpleado)
-    botonBaja.addEventListener('click',bajaEmpleado)
+    botonAgregar.addEventListener('click',deshabilitarCamposAgregarEmpleado)
+    botonModificar.addEventListener('click',deshabilitarCamposModificarEmpleado)
+    botonBaja.addEventListener('click',deshabilitarCamposBajaEmpleado)
 
     botonCancelar.addEventListener('click',cancelar)
 
@@ -79,7 +79,7 @@ function inicioEmpleados(){
     botonLupaEmpleado.addEventListener('click',consultaEmpleado) //llama a la funcion
 }
 
-function inicioPuestos(){
+function traerPantallaInicioPuestos(){ //funcion para mostrar la pantalla de inicio Puestos
     seccionDatosEmpleado.style.display ='none'
     seccionTablaEmpleados.style.display = 'none'
     seccionBuscadorEmpleados.style.display ='none'
@@ -88,8 +88,8 @@ function inicioPuestos(){
     seccionTablaPuestos.style.display ='block'
     seccionBuscadoPuestos.style.display ='block'
 
-    botonEmpleados.addEventListener('click',inicioEmpleados)
-    botonEmpleados.addEventListener('click', agregarEmpleado)
+    botonEmpleados.addEventListener('click',traerPantallaInicioEmpleados)
+    botonEmpleados.addEventListener('click', deshabilitarCamposAgregarEmpleado)
 
     botonCancelar.addEventListener('click',cancelar)
     botonAgregar.addEventListener('click', deshabilitarCamposAgregarPuesto)
@@ -100,7 +100,7 @@ function inicioPuestos(){
 
 }
 
-function agregarEmpleado(){ //seccion de pagina
+function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los campos no requeridos para agregar empleado y mandar llamar al ajax
     cancelar();
 
     inputNumEmp.disabled = false; //campo numero empleado
@@ -136,11 +136,11 @@ function agregarEmpleado(){ //seccion de pagina
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
 
-    botonAgregar.style.boxShadow = '#079cff 1px 1px 20px 1px';
+    botonAgregar.style.boxShadow = '#079cff 1px 1px 20px 1px'; //elimina el estilo de los botones al seleccionarlos
     botonModificar.style.boxShadow = 'none';
     botonBaja.style.boxShadow = 'none';
 
-    botonAceptar.removeEventListener('click', modificaEmpleado);
+    botonAceptar.removeEventListener('click', modificaEmpleado); //remueve los eventos anteriores para ejecutar uno solo
     botonAceptar.removeEventListener('click', darDeBajaEmpleado);
     botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
@@ -189,7 +189,7 @@ function darDeBajaEmpleado(){
             }
 }
 
-function modificarEmpleado(){ //seccion en la pagina
+function deshabilitarCamposModificarEmpleado(){ //funcion para deshabilitar los campos no requeridos para modificar empleado y mandar llamar al ajax
 
     cancelar(); //limpia los input
 
@@ -236,10 +236,8 @@ function modificarEmpleado(){ //seccion en la pagina
 }
 
 
-function bajaEmpleado(){
-
+function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campos no requeridos para dar de baja empleado y mandar llamar al ajax
     cancelar(); //limpia los input
-
 
     inputNumEmp.disabled = false; //campo numero empleado
     inputNumEmp.style.background = 'white';
@@ -664,7 +662,7 @@ function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd p
 // document.oncontextmenu=new Function("return false");
 // //******* */
 
-window.addEventListener('load', inicioEmpleados); //se activa cuando se carga toda la pagina
+window.addEventListener('load', traerPantallaInicioEmpleados); //se activa cuando se carga toda la pagina
 
 
 
