@@ -20,6 +20,7 @@ $causabaja = filter_input(INPUT_POST, 'causabaja', FILTER_SANITIZE_STRING);
 $idpuesto = filter_input(INPUT_POST, 'idpuesto', FILTER_SANITIZE_STRING);
 $descripcion = filter_input(INPUT_POST, 'descripcion', FILTER_SANITIZE_STRING);
 $empleadoalta = filter_input(INPUT_POST, 'empleadoalta', FILTER_SANITIZE_STRING);
+$empleadobaja = filter_input(INPUT_POST, 'empleadobaja', FILTER_SANITIZE_STRING);
 
 switch($iOpcion){
     //case 1-5 es para empleados
@@ -50,6 +51,10 @@ switch($iOpcion){
 
     case '8':
         $arrRespuesta=Puestos::modificarPuesto($opcion,$idpuesto,$descripcion);
+    break;
+
+    case '9':
+        $arrRespuesta=Puestos::bajaPuesto($opcion,$idpuesto,$empleadobaja);
     break;
 }
 
