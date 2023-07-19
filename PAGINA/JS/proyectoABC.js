@@ -54,7 +54,7 @@ inputIdPuesto.addEventListener('keypress',SoloNumeros)
 inputEmpleadoRegistra.addEventListener('keypress',SoloNumeros)
 inputEmpleadoBaja.addEventListener('keypress',SoloNumeros)
 inputBuscadorEmpleado.addEventListener('keypress',SoloNumeros)
-// inputBuscadorPuesto.addEventListener('keypress', SoloNumeros) //buscar si se puede incluir el signo -
+inputBuscadorPuesto.addEventListener('keypress', SoloNumeros) 
 
 
 function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de inicio Empleados
@@ -135,7 +135,6 @@ function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los ca
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
     botonAceptar.removeEventListener('click',darDeBajaPuesto);
-
 
     botonAceptar.removeEventListener('click',modificaEmpleado); //remueve los eventos anteriores para ejecutar uno solo
     botonAceptar.removeEventListener('click',darDeBajaEmpleado);
@@ -246,7 +245,6 @@ function deshabilitarCamposModificarEmpleado(){ //funcion para deshabilitar los 
     botonAceptar.addEventListener('click',modificaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
 
-
 function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campos no requeridos para dar de baja empleado y mandar llamar al ajax
     cancelar(); //limpia los input
 
@@ -296,7 +294,6 @@ function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campo
     botonAceptar.removeEventListener('click',modificaEmpleado);
     botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
-
 
 function consultaPuestos(){
     if (inputBuscadorPuesto.value.length == 0) {
@@ -480,10 +477,13 @@ function SoloLetras(e){
 function SoloNumeros(evt){
     var code = (evt.which) ? evt.which : evt.keyCode;
     if(code==8) { // backspace.
-      return true;
+        return true;
     } else if(code>=48 && code<=57) { // is a number.
-      return true;
-    } else{ // other keys.
+        return true;
+    } else if (code == 45){
+        return true;
+    }
+    else{ // other keys.
         evt.preventDefault();
     }
 }
@@ -767,8 +767,8 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                         tabla_html += "<td> </td>";
                         // tabla_html += "<td>" + data[i].testatus+ "</td>";
                         tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
+                        // tabla_html += "<td> </td>";
+                        // tabla_html += "<td> </td>";
                     }
                 }
                 else{
@@ -776,8 +776,8 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
+                    // tabla_html += "<td> </td>";
+                    // tabla_html += "<td> </td>";
                 }
 
                 $("#info-tabla-puestos").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
@@ -792,8 +792,8 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                         "<td> </td>" +
                         // "<td>" + data[i].testatus  + "</td>" +
                         "<td> </td>" +
-                        "<td> </td>" +
-                        "<td> </td>" +
+                        // "<td> </td>" +
+                        // "<td> </td>" +
                         "</tr>";
                         tabla_html += "<tr> </tr>"
                     }
@@ -804,8 +804,8 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
+                    // tabla_html += "<td> </td>";
+                    // tabla_html += "<td> </td>";
                 }
     
                     $("#info-tabla-puestos").html(tabla_html);  //
@@ -833,17 +833,13 @@ function darAltaPuesto(id,descrip,emplealta){ //funcion para consulta la bd para
                 for(var i = 0; i < data.length; i++){
                     tabla_html += "<td>" + inputIdPuesto.value + "</td>";
                     tabla_html += "<td>" + inputDescripcion.value + "</td>";
-                    tabla_html += "<td> </td>";
                     // tabla_html += "<td>" + data[i].testatus+ "</td>";
-                    tabla_html += "<td> </td>";
                     tabla_html += "<td>" + inputEmpleadoRegistra.value + "</td>";
                     tabla_html += "<td> </td>";
                 }
             }
             else{
                 tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
@@ -877,14 +873,10 @@ function modificarDatosPuesto(id,descrip){ //funcion para consulta la bd para el
                     tabla_html += "<td> </td>";
                     // tabla_html += "<td>" + data[i].testatus+ "</td>";
                     tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
                 }
             }
             else{
                 tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
@@ -918,15 +910,11 @@ function darBajaPuesto(id,emplebaja){ //funcion para consulta la bd para el case
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     // tabla_html += "<td>" + data[i].testatus+ "</td>";
-                    tabla_html += "<td> </td>";
-                    tabla_html += "<td> </td>";
                     tabla_html += "<td>" + inputEmpleadoBaja.value + "</td>";
                 }
             }
             else{
                 tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
-                        tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
                         tabla_html += "<td> </td>";
@@ -942,31 +930,28 @@ function darBajaPuesto(id,emplebaja){ //funcion para consulta la bd para el case
     });
 }
 
-
-
-
-//funcion para deshabilitar el click derecho
-// function disableIE() {
-//     if (document.all) {
-//         return false;
-//     }
-// }
-// function disableNS(e) {
-//     if (document.layers || (document.getElementById && !document.all)) {
-//         if (e.which==2 || e.which==3) {
-//             return false;
-//         }
-//     }
-// }
-// if (document.layers) {
-//     document.captureEvents(Event.MOUSEDOWN);
-//     document.onmousedown = disableNS;
-// } 
-// else {
-//     document.onmouseup = disableNS;
-//     document.oncontextmenu = disableIE;
-// }
-// document.oncontextmenu=new Function("return false");
-// //******* */
+//funciones para deshabilitar el click derecho
+function disableIE() {
+    if (document.all) {
+        return false;
+    }
+}
+function disableNS(e) {
+    if (document.layers || (document.getElementById && !document.all)) {
+        if (e.which==2 || e.which==3) {
+            return false;
+        }
+    }
+}
+if (document.layers) {
+    document.captureEvents(Event.MOUSEDOWN);
+    document.onmousedown = disableNS;
+} 
+else {
+    document.onmouseup = disableNS;
+    document.oncontextmenu = disableIE;
+}
+document.oncontextmenu=new Function("return false");
+//******* */
 
 window.addEventListener('load', traerPantallaInicioEmpleados); //se activa cuando se carga toda la pagina
