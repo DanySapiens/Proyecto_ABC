@@ -1,4 +1,4 @@
-//botones
+//declara de botones del html
 const botonEmpleados = document.getElementById('boton-empleados')
 const botonPuestos = document.getElementById('boton-puestos')
 const botonAgregar = document.getElementById('boton-agregar')
@@ -9,7 +9,7 @@ const botonCancelar = document.getElementById('boton-cancelar')
 const botonLupaEmpleado = document.getElementById('lupa-empleado')
 const botonLupaPuestos = document.getElementById('lupa-puesto')
 
-//secciones
+//declara de secciones del html
 const seccionDatosEmpleado = document.getElementById('ingresar-datos-empleado')
 const seccionDatosPuesto = document.getElementById('ingresar-datos-puesto')
 const seccionTablaEmpleados = document.getElementById('mostrar-info-empleados')
@@ -17,7 +17,7 @@ const seccionTablaPuestos = document.getElementById('mostrar-info-puestos')
 const seccionBuscadorEmpleados = document.getElementById('buscador-empleado')
 const seccionBuscadoPuestos = document.getElementById('buscador-puesto')
 
-//Informacion del empleado y puesto
+//declara los inputs para la informacion del empleado y puesto
 const inputNumEmp = document.getElementById("numero-empleado")
 const inputNombre = document.getElementById('nombre-empleado')
 const inputApellidoMaterno = document.getElementById('apellido-materno')
@@ -35,9 +35,8 @@ const inputEmpleadoBaja = document.getElementById('empleado-baja')
 const inputCausaBaja = document.getElementById('causa-baja')
 const inputBuscadorEmpleado = document.getElementById('buscar-empleado')
 const inputBuscadorPuesto = document.getElementById('buscar-puesto')
-const checkEmpleados = document.getElementById('check-emp')
 
-//llama a la funcion paa validar el ingreso de letras en estos campos
+//llamamos a la funcion para validar el ingreso de letras en estos campos
 inputNombre.addEventListener('keypress',SoloLetras)
 inputApellidoMaterno.addEventListener('keypress',SoloLetras)
 inputApellidoPaterno.addEventListener('keypress',SoloLetras)
@@ -45,7 +44,7 @@ inputApellidoPaterno.addEventListener('keypress',SoloLetras)
 inputApellidoPaterno.addEventListener('keypress',SoloLetras)
 inputDescripcion.addEventListener('keypress',SoloLetras)
 
-//ingreso de letras en estos campos
+//lamamos a la funcion para validar el ingreso numeros en estos campos
 inputNumEmp.addEventListener('keypress',SoloNumeros)
 inputCP.addEventListener('keypress',SoloNumeros)
 inputTel.addEventListener('keypress',SoloNumeros)
@@ -65,10 +64,10 @@ function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de i
     seccionTablaPuestos.style.display = 'none';
     seccionBuscadoPuestos.style.display ='none';
 
-    botonPuestos.addEventListener('click',traerPantallaInicioPuestos);
+    botonPuestos.addEventListener('click',traerPantallaInicioPuestos); //llama a la pantalla de puestos
     botonPuestos.addEventListener('click', deshabilitarCamposAgregarPuesto);
 
-    botonAgregar.removeEventListener('click', deshabilitarCamposAgregarPuesto);
+    botonAgregar.removeEventListener('click', deshabilitarCamposAgregarPuesto); //eliminamos los eventos porque no se sobrescriben
     botonModificar.removeEventListener('click', deshabilitarCamposModificarPuesto);
     botonBaja.removeEventListener('click', deshabilitarCamposBajaPuesto);
 
@@ -76,20 +75,20 @@ function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de i
     botonModificar.addEventListener('click',deshabilitarCamposModificarEmpleado);
     botonBaja.addEventListener('click',deshabilitarCamposBajaEmpleado);
 
-    botonCancelar.addEventListener('click',cancelar);
+    botonCancelar.addEventListener('click',cancelar); //limpia los input
 
     inputCausaBaja.disabled = true; //campo causa baja
     inputCausaBaja.style.background = '#c1c1c1';
 
     botonAceptar.removeEventListener('click',altaPuesto);
-    botonAceptar.removeEventListener('click',modificarPuesto);
+    botonAceptar.removeEventListener('click',modificarPuesto); //eliminamos los eventos porque no se sobrescriben
     botonAceptar.removeEventListener('click',darDeBajaPuesto);
 
     botonAceptar.removeEventListener('click',altaEmpleado);
     botonAceptar.removeEventListener('click',modificaEmpleado);
     botonAceptar.removeEventListener('click',darDeBajaEmpleado);
 
-    botonLupaEmpleado.addEventListener('click',consultaEmpleado); //llama a la funcion
+    botonLupaEmpleado.addEventListener('click',consultaEmpleado); //llama a la funcion consulta empleado
 }
 
 function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los campos no requeridos para agregar empleado y mandar llamar al ajax
@@ -141,16 +140,16 @@ function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los ca
     botonAceptar.addEventListener('click',altaEmpleado); ///llama a la funcion para ejecutar el ajax
 }
 
-function consultaEmpleado(){
+function consultaEmpleado(){ 
     if (inputBuscadorEmpleado.value.length == 0) {
         alert('Ingrese numero de empleado');
         return false;
     }else{
-        realizarConsultaEmpleado(inputBuscadorEmpleado.value)
+        realizarConsultaEmpleado(inputBuscadorEmpleado.value);
     }
 }
 
-function altaEmpleado(){ //evalua que tenga todos los campos llenos
+function altaEmpleado(){ //el if evalua que tenga todos los campos llenos
     if ((inputNumEmp.value.length == 0)||(inputNombre.value.length == 0)||(inputApellidoPaterno.value.length == 0)||(inputApellidoMaterno.value.length == 0)||(inputDireccion.value.length == 0)||(inputCP.value.length == 0)||(inputTel.value.length == 0)||(inputCURP.value.length == 0)||(inputNSS.value.length == 0)||(inputPuesto.value.length == 0)) {
         alert('Ingrese todos los datos del empleado');
         return false;
@@ -164,7 +163,7 @@ function altaEmpleado(){ //evalua que tenga todos los campos llenos
                         inputTel.value,
                         inputCURP.value,
                         inputNSS.value,
-                        inputPuesto.value)
+                        inputPuesto.value);
     }
 }
 
@@ -179,9 +178,8 @@ function modificaEmpleado(){
                             inputTel.value,
                             inputCURP.value,
                             inputNSS.value,
-                            inputPuesto.value)
-            }
-
+                            inputPuesto.value);
+    }
 }
 
 function darDeBajaEmpleado(){
@@ -190,12 +188,11 @@ function darDeBajaEmpleado(){
         return false;
     }else{ //ejecutas el ajax
         darBajaEmpleado(inputNumEmp.value,
-                        inputCausaBaja.value)
-            }
+                        inputCausaBaja.value);
+    }
 }
 
 function deshabilitarCamposModificarEmpleado(){ //funcion para deshabilitar los campos no requeridos para modificar empleado y mandar llamar al ajax
-
     cancelar(); //limpia los input
 
     inputNumEmp.disabled = false; //campo numero empleado
@@ -238,7 +235,6 @@ function deshabilitarCamposModificarEmpleado(){ //funcion para deshabilitar los 
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
     botonAceptar.removeEventListener('click',darDeBajaPuesto);
-
 
     botonAceptar.removeEventListener('click',altaEmpleado);
     botonAceptar.removeEventListener('click',darDeBajaEmpleado);
@@ -289,7 +285,6 @@ function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campo
     botonAceptar.removeEventListener('click',modificarPuesto);
     botonAceptar.removeEventListener('click',darDeBajaPuesto);
 
-
     botonAceptar.removeEventListener('click',altaEmpleado);
     botonAceptar.removeEventListener('click',modificaEmpleado);
     botonAceptar.addEventListener('click',darDeBajaEmpleado); ///llama a la funcion para ejecutar el ajax
@@ -299,7 +294,7 @@ function consultaPuestos(){
     if (inputBuscadorPuesto.value.length == 0) {
          alert('Ingrese el ID del puesto');
          return false;
-     }else{
+     }else{ //ejecuta el ajax
         realizarConsultaPuesto(inputBuscadorPuesto.value);
      }
 }
@@ -311,8 +306,7 @@ function altaPuesto(){ //evalua si todos los campos estan llenos
     }else{
         darAltaPuesto(inputIdPuesto.value,
                     inputDescripcion.value,
-                    inputEmpleadoRegistra.value
-                        )
+                    inputEmpleadoRegistra.value);
     }
 }
 
@@ -322,8 +316,7 @@ function modificarPuesto(){//evalua si todos los campos estan llenos
         return false;
     }else{
         modificarDatosPuesto(inputIdPuesto.value,
-                    inputDescripcion.value,
-                    )
+                         inputDescripcion.value);
     }
 }
 
@@ -333,8 +326,7 @@ function darDeBajaPuesto(){//evalua si todos los campos estan llenos
         return false;
     }else{
         darBajaPuesto(inputIdPuesto.value,
-                    inputEmpleadoBaja.value,
-                    )
+                    inputEmpleadoBaja.value);
     }
 }
 
@@ -396,7 +388,6 @@ function deshabilitarCamposAgregarPuesto(){
     botonAceptar.removeEventListener('click',darDeBajaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
     botonAceptar.addEventListener('click',altaPuesto); ///llama a la funcion para ejecutar el ajax
-
 }
 
 function deshabilitarCamposModificarPuesto(){
@@ -469,7 +460,6 @@ function SoloLetras(e){
     }
     if(letras.indexOf(tecla) == -1 && !teclaEspecial){
        e.preventDefault();
-        
     }
 }
 
@@ -480,14 +470,13 @@ function SoloNumeros(evt){
         return true;
     } else if(code>=48 && code<=57) { // is a number.
         return true;
-    } else if (code == 45){
+    } else if (code == 45){ //incluye el signo negativo -
         return true;
     }
     else{ // other keys.
         evt.preventDefault();
     }
 }
-
 
 function cancelar(){ //funcion para limpiar contenido de los inputs
   //seccion empleados
@@ -572,7 +561,7 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
                         "<td>" + data[i].tdescripcionpuesto + "</td>" +
                         "<td> </td>" +
                         "</tr>";
-                        tabla_html += "<tr> </tr>"
+                        tabla_html += "<tr> </tr>";
                     }
     
                 }
@@ -765,10 +754,7 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                         tabla_html += "<td>" + data[i].tidpuesto + "</td>";
                         tabla_html += "<td>" + data[i].tdescripcion + "</td>";
                         tabla_html += "<td> </td>";
-                        // tabla_html += "<td>" + data[i].testatus+ "</td>";
                         tabla_html += "<td> </td>";
-                        // tabla_html += "<td> </td>";
-                        // tabla_html += "<td> </td>";
                     }
                 }
                 else{
@@ -776,8 +762,6 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    // tabla_html += "<td> </td>";
-                    // tabla_html += "<td> </td>";
                 }
 
                 $("#info-tabla-puestos").html(tabla_html);  // Insertar la tabla en el elemento con ID "tabla"
@@ -790,10 +774,7 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                         "<td>" + data[i].tidpuesto + "</td>" +
                         "<td>" + data[i].tdescripcion + "</td>" +
                         "<td> </td>" +
-                        // "<td>" + data[i].testatus  + "</td>" +
                         "<td> </td>" +
-                        // "<td> </td>" +
-                        // "<td> </td>" +
                         "</tr>";
                         tabla_html += "<tr> </tr>"
                     }
@@ -804,8 +785,6 @@ function realizarConsultaPuesto(id){ //funcion para consulta la bd para el case 
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    // tabla_html += "<td> </td>";
-                    // tabla_html += "<td> </td>";
                 }
     
                     $("#info-tabla-puestos").html(tabla_html);  //
@@ -833,7 +812,6 @@ function darAltaPuesto(id,descrip,emplealta){ //funcion para consulta la bd para
                 for(var i = 0; i < data.length; i++){
                     tabla_html += "<td>" + inputIdPuesto.value + "</td>";
                     tabla_html += "<td>" + inputDescripcion.value + "</td>";
-                    // tabla_html += "<td>" + data[i].testatus+ "</td>";
                     tabla_html += "<td>" + inputEmpleadoRegistra.value + "</td>";
                     tabla_html += "<td> </td>";
                 }
@@ -846,7 +824,7 @@ function darAltaPuesto(id,descrip,emplealta){ //funcion para consulta la bd para
                         tabla_html += "<td> </td>";
                         
             }
-            $("#info-tabla-puestos").html(tabla_html);  //
+            $("#info-tabla-puestos").html(tabla_html); 
             
         },
         error: function (data){   
@@ -871,7 +849,6 @@ function modificarDatosPuesto(id,descrip){ //funcion para consulta la bd para el
                     tabla_html += "<td>" + inputIdPuesto.value + "</td>";
                     tabla_html += "<td>" + inputDescripcion.value + "</td>";
                     tabla_html += "<td> </td>";
-                    // tabla_html += "<td>" + data[i].testatus+ "</td>";
                     tabla_html += "<td> </td>";
                 }
             }
@@ -909,7 +886,6 @@ function darBajaPuesto(id,emplebaja){ //funcion para consulta la bd para el case
                     tabla_html += "<td>" + inputIdPuesto.value + "</td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
-                    // tabla_html += "<td>" + data[i].testatus+ "</td>";
                     tabla_html += "<td>" + inputEmpleadoBaja.value + "</td>";
                 }
             }
@@ -952,6 +928,5 @@ else {
     document.oncontextmenu = disableIE;
 }
 document.oncontextmenu=new Function("return false");
-//******* */
 
 window.addEventListener('load', traerPantallaInicioEmpleados); //se activa cuando se carga toda la pagina
