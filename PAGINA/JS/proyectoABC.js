@@ -57,6 +57,8 @@ inputBuscadorPuesto.addEventListener('keypress', SoloNumeros)
 
 
 function traerPantallaInicioEmpleados(){ //funcion para mostrar la pantalla de inicio Empleados
+    llenarPuestos();
+
     seccionDatosEmpleado.style.display ='block';
     seccionTablaEmpleados.style.display ='block';
     seccionBuscadorEmpleados.style.display ='block';
@@ -734,6 +736,28 @@ function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd p
             console.log(data)
         }
     });
+}
+
+function llenarPuestos(){ //trae todos los puestos activos y llena el combo box para elegir puesto
+    var selectElement = document.getElementById("puesto");
+    selectElement.innerHTML='';
+    $.ajax({
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion:6, opcion:4, idpuesto:-1},
+        success: function(data){
+            data.forEach(option => {
+                var newOption = document.createElement("option");
+                newOption.value = option.tidpuesto;
+                newOption.text = option.tdescripcion;
+                selectElement.appendChild(newOption);
+              });
+        },
+        error: function (data){   
+            console.log(data)
+        }
+        });
 }
 
 //seccion de ajaxs para la clase puestos
