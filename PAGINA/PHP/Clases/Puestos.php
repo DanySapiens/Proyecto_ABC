@@ -25,4 +25,15 @@ class Puestos{
         return $data;
     }
 
+    public static function modificarPuesto($opcion,$idpuesto,$descripcion){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'$descripcion',0,0);";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
+
 }
