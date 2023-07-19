@@ -58,5 +58,4 @@ switch($iOpcion){
     break;
 }
 
-
 echo json_encode($arrRespuesta);
