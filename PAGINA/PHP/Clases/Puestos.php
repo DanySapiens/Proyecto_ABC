@@ -36,4 +36,15 @@ class Puestos{
         return $data;
     }
 
+    public static function bajaPuesto($opcion,$idpuesto,$empleadobaja){
+        $conexion = new Conexion();
+        $conexion -> conectar();
+        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'',0,{$empleadobaja});";
+        $resultado = $conexion -> ejecutarConsulta($query);
+        $data = array();
+        foreach($resultado as $row){
+        $data[] = $row;}
+        return $data;
+    }
+
 }
