@@ -47,6 +47,10 @@ switch($iOpcion){
     case '7':
         $arrRespuesta=Puestos::agregarPuesto($opcion,$idpuesto,$descripcion,$empleadoalta);
     break;
+
+    case '8':
+        $arrRespuesta=Puestos::modificarPuesto($opcion,$idpuesto,$descripcion);
+    break;
 }
 
 
