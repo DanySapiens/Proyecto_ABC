@@ -11,7 +11,7 @@ DECLARE
 BEGIN
     CASE
         WHEN iOpcion = 1 THEN  --OPCION QUE AGREGA UN NUEVO PUESTO 
-            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto AND descripcion = iDescripcion) THEN --si existe el id del puesto y descripcion en la tabla
+            IF EXISTS(SELECT 'OK' FROM tbcatpuestosprueba WHERE idpuesto = iIdPuesto OR descripcion = iDescripcion) THEN --si existe el id del puesto y descripcion en la tabla
                     RETURN QUERY SELECT --EL PUESTO YA EXISTE POR LO QUE NO SE PUEDE DAR DE ALTA
                             iIdPuesto,
                             iDescripcion,
