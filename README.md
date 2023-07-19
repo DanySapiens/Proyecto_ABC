@@ -13,7 +13,7 @@ Proyecto que permite realizar el alta, cambios de datos y baja de empleados y pu
 select * from fnoperacionesempleados(1, 32116394, 'ROSA', 'PAYAN', 'ROCHIN', 'Mocorito', '23232', '1114360353', 'PARR990612MSLPCN06', '44467472421', 35, '')
 
 //select para dar de alta puesto con datos de prueba
-select * from fnoperacionespuestos(1, 87, 'NUEVOPUESTO', 90236398, 0);
+select * from fnoperacionespuestos(1, 35, 'NUEVOPUESTO', 90236398, 0);
 
 6.Abrir la pagina desde el xampp con el localhost y la ruta de la carpeta, ejemplo:
 http://localhost:81/Proyecto_ABC/PAGINA/HTML/ProyectoABC.html
