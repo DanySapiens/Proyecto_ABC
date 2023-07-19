@@ -122,6 +122,7 @@ function deshabilitarCamposAgregarEmpleado(){ //funcion para deshabilitar los ca
     // botonAceptar.removeEventListener('click',consultaPuestos);
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
+    botonAceptar.removeEventListener('click',darDeBajaPuesto);
 
 
     botonAceptar.removeEventListener('click', modificaEmpleado); //remueve los eventos anteriores para ejecutar uno solo
@@ -226,6 +227,7 @@ function deshabilitarCamposModificarEmpleado(){ //funcion para deshabilitar los 
     // botonAceptar.removeEventListener('click',consultaPuestos);
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
+    botonAceptar.removeEventListener('click',darDeBajaPuesto);
 
 
     botonAceptar.removeEventListener('click',altaEmpleado);
@@ -277,6 +279,7 @@ function deshabilitarCamposBajaEmpleado(){ //funcion para deshabilitar los campo
     // botonAceptar.removeEventListener('click',consultaPuestos);
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
+    botonAceptar.removeEventListener('click',darDeBajaPuesto);
 
 
     botonAceptar.removeEventListener('click',altaEmpleado);
@@ -313,6 +316,17 @@ function modificarPuesto(){
     }else{
         modificarDatosPuesto(inputIdPuesto.value,
                     inputDescripcion.value,
+                    )
+    }
+}
+
+function darDeBajaPuesto(){
+    if (inputIdPuesto.value.length == 0) {
+        alert('Ingrese ID del puesto');
+        return false;
+    }else{
+        darBajaPuesto(inputIdPuesto.value,
+                    inputEmpleadoBaja.value,
                     )
     }
 }
@@ -356,6 +370,7 @@ function deshabilitarCamposAgregarPuesto(){
     botonAceptar.removeEventListener('click',darDeBajaEmpleado);
 
     // botonAceptar.removeEventListener('click',consultaPuestos);
+    botonAceptar.removeEventListener('click',darDeBajaPuesto);
     botonAceptar.removeEventListener('click',modificarPuesto);
     botonAceptar.addEventListener('click',altaPuesto); ///llama a la funcion para ejecutar el ajax
 
@@ -380,6 +395,7 @@ function deshabilitarCamposModificarPuesto(){
 
 
     // botonAceptar.removeEventListener('click',consultaPuestos);
+    botonAceptar.removeEventListener('click',darDeBajaPuesto);
     botonAceptar.removeEventListener('click',altaPuesto);
     botonAceptar.addEventListener('click',modificarPuesto); ///llama a la funcion para ejecutar el ajax
 
@@ -397,6 +413,14 @@ function deshabilitarCamposBajaPuesto(){
 
     inputEmpleadoBaja.disabled = false; //campo nombre empleado
     inputEmpleadoBaja.style.background = 'white';
+
+    botonAceptar.removeEventListener('click',altaEmpleado);
+    botonAceptar.removeEventListener('click',modificaEmpleado);
+    botonAceptar.removeEventListener('click',darDeBajaEmpleado);
+    
+    botonAceptar.removeEventListener('click',altaPuesto);
+    botonAceptar.removeEventListener('click',modificarPuesto);
+    botonAceptar.addEventListener('click',darDeBajaPuesto); ///llama a la funcion para ejecutar el ajax
 }
 
 //FUNCION PARA VALIDAR INGRESO DE SOLO CARACTERES
@@ -822,6 +846,48 @@ function modificarDatosPuesto(id,descrip){ //funcion para consulta la bd para el
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
                     tabla_html += "<td> </td>";
+                }
+            }
+            else{
+                tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        tabla_html += "<td> </td>";
+                        
+            }
+            $("#info-tabla-puestos").html(tabla_html);  //
+            
+        },
+        error: function (data){   
+            console.log(data)
+        }
+    });
+}
+
+
+function darBajaPuesto(id,emplebaja){ //funcion para consulta la bd para el case 9 del php
+    $.ajax({  
+        url: ('../PHP/case.php'),
+        type: 'POST',
+        dataType: 'JSON',
+        data: {iOpcion:9, opcion:3, idpuesto:id,empleadobaja:emplebaja}, //manda estos datos al POST del php, el nombre del campo antes del : es como lo recibe el post
+        success: function(data){
+            alert('Estatus: ' + data[0].testatus + '\n' + data[0].tmensaje); 
+
+            if(data[0].testatus == '1'){
+
+                var tabla_html = '';
+                for(var i = 0; i < data.length; i++){
+                    tabla_html += "<td>" + inputIdPuesto.value + "</td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    // tabla_html += "<td>" + data[i].testatus+ "</td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td> </td>";
+                    tabla_html += "<td>" + inputEmpleadoBaja.value + "</td>";
                 }
             }
             else{
