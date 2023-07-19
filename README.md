@@ -15,4 +15,5 @@ select * from fnoperacionesempleados(1, 32116394, 'ROSA', 'PAYAN', 'ROCHIN', 'Mo
 //select para dar de alta puesto con datos de prueba
 select * from fnoperacionespuestos(1, 87, 'NUEVOPUESTO', 90236398, 0);
 
-
+6.Abrir la pagina desde el xampp con el localhost y la ruta de la carpeta, ejemplo:
+http://localhost:81/Proyecto_ABC/PAGINA/HTML/ProyectoABC.html
