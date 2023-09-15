@@ -592,7 +592,7 @@ function realizarConsultaEmpleado(empleado){ //funcion para consulta la bd para 
 }
 
 function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 2 del php
-    $.ajax({  ///no guarda la infor en bd
+    $.ajax({  
         url: ('../PHP/case.php'),
         type: 'POST',
         dataType: 'JSON',
@@ -642,7 +642,7 @@ function darAltaEmpleado(empleado,nom,appater,appmatern,direc,cp,tel,cur,ns,pues
 }
 
 function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion para consulta la bd para el case 3 del php
-    $.ajax({  ///no guarda la infor en bd
+    $.ajax({  
         url: ('../PHP/case.php'),
         type: 'POST',
         dataType: 'JSON',
@@ -690,7 +690,7 @@ function modificarDatosEmpleado(empleado,direc,cp,tel,cur,ns,pues){ //funcion pa
 }
 
 function darBajaEmpleado(empleado,causaBajaEmp){ //funcion para consulta la bd para el case 4 del php
-    $.ajax({  ///no guarda la infor en bd
+    $.ajax({  
         url: ('../PHP/case.php'),
         type: 'POST',
         dataType: 'JSON',
