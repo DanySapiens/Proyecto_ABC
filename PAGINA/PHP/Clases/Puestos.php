@@ -12,36 +12,27 @@ class Puestos{
     }
 
     public static function agregarPuesto($opcion,$idpuesto,$descripcion,$empleadoalta){
-        $conexion = new Conexion();
-        $conexion -> conectar();
-        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'$descripcion',{$empleadoalta},0);";
-        $resultado = $conexion -> ejecutarConsulta($query);
-        $data = array();
-        foreach($resultado as $row){
-        $data[] = $row;}
-        return $data;
+        $objAPI = new Capirest();
+        $arrDatos1  = array('opcion' =>$opcion, 'idpuesto' =>$idpuesto, 'descripcion' => $descripcion, 'empleadoalta' =>$empleadoalta);
+        $resultApi = $objAPI->consumirApi('puestos','agregar', $arrDatos1, 'POST');
+        $resultApi = json_decode($resultApi);
+        return $resultApi;
     }
 
     public static function modificarPuesto($opcion,$idpuesto,$descripcion){
-        $conexion = new Conexion();
-        $conexion -> conectar();
-        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'$descripcion',0,0);";
-        $resultado = $conexion -> ejecutarConsulta($query);
-        $data = array();
-        foreach($resultado as $row){
-        $data[] = $row;}
-        return $data;
+        $objAPI = new Capirest();
+        $arrDatos1  = array('opcion' =>$opcion, 'idpuesto' =>$idpuesto, 'descripcion' => $descripcion);
+        $resultApi = $objAPI->consumirApi('puestos','modificar', $arrDatos1, 'PUT');
+        $resultApi = json_decode($resultApi);
+        return $resultApi;
     }
 
     public static function bajaPuesto($opcion,$idpuesto,$empleadobaja){
-        $conexion = new Conexion();
-        $conexion -> conectar();
-        $query = "select * from fnoperacionespuestos({$opcion},{$idpuesto},'',0,{$empleadobaja});";
-        $resultado = $conexion -> ejecutarConsulta($query);
-        $data = array();
-        foreach($resultado as $row){
-        $data[] = $row;}
-        return $data;
+        $objAPI = new Capirest();
+        $arrDatos1  = array('opcion' =>$opcion, 'idpuesto' =>$idpuesto, 'empleadobaja' =>$empleadobaja); //el nombre entre comillas es a como lo recibe la api en el py en el endpoint
+        $resultApi = $objAPI->consumirApi('puestos','baja', $arrDatos1, 'PUT');
+        $resultApi = json_decode($resultApi);
+        return $resultApi;
     }
 
 }

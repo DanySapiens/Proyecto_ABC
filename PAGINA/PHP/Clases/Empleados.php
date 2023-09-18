@@ -14,14 +14,18 @@ class Empleados{
     }
     public static function modificarEmpleado($opcion,$numeroempleado,$direccion,$codigopostal,$telefono,$curp,$nss,$puesto){
         $objAPI = new Capirest();
-        $arrDatos1  = array('opcion' =>$opcion, 'numeroempleado' =>$numeroempleado, 'causabaja' =>$causabaja, 'direccion' =>$direccion, 'codigopostal' => $codigopostal, 'telefono' => $telefono, 'curp' => $curp, 'nss' =>$nss, 'puesto' =>$puesto);
+        $arrDatos1  = array('opcion' =>$opcion, 'numeroempleado' =>$numeroempleado, 'direccion' =>$direccion, 'codigopostal' => $codigopostal, 'telefono' => $telefono, 'curp' => $curp, 'nss' =>$nss, 'descripcionpuesto' =>$puesto);
         $resultApi = $objAPI->consumirApi('empleados','modificar', $arrDatos1, 'PUT');
+
+        $resultApi = json_decode($resultApi);
         return $resultApi;
     }
     public static function bajaEmpleado($opcion,$numeroempleado,$causabaja){
         $objAPI = new Capirest();
         $arrDatos1  = array('opcion' =>$opcion, 'numeroempleado' =>$numeroempleado, 'causabaja' =>$causabaja);
         $resultApi = $objAPI->consumirApi('empleados','baja', $arrDatos1, 'PUT');
+        
+        $resultApi = json_decode($resultApi);
         return $resultApi;
     }
     
